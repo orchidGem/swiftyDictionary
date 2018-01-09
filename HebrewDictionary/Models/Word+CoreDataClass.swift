@@ -12,19 +12,8 @@ import CoreData
 
 @objc(Word)
 public class Word: NSManagedObject {
-/*
-     convenience init(name: String, age: Int16, context: NSManagedObjectContext) {
-     self.init(context: context)
-     self.name = name
-     self.age = age
-     }
-     
-     func sayHello() {
-     print("\(name) says hello!")
-     }
- */
     
-    convenience init(text: String, translation: String, context: NSManagedObjectContext) {
+    convenience init(text: String?, translation: String?, context: NSManagedObjectContext) {
         self.init(context: context)
         self.text = text
         self.translation = translation

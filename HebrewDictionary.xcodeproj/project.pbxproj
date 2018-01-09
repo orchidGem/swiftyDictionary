@@ -19,6 +19,7 @@
 		D178695F20024BD70026E25B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D178695E20024BD70026E25B /* Extensions.swift */; };
 		D198BA112003C465009954BC /* DictionaryOfWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = D198BA102003C465009954BC /* DictionaryOfWords.swift */; };
 		D198BA132004BFB1009954BC /* AddWordViewDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D198BA122004BFB0009954BC /* AddWordViewDirection.swift */; };
+		D198BA15200510EA009954BC /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D198BA14200510EA009954BC /* CustomTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		D178695E20024BD70026E25B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D198BA102003C465009954BC /* DictionaryOfWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryOfWords.swift; sourceTree = "<group>"; };
 		D198BA122004BFB0009954BC /* AddWordViewDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewDirection.swift; sourceTree = "<group>"; };
+		D198BA14200510EA009954BC /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				D17869422002381C0026E25B /* DictionaryViewController.swift */,
+				D198BA14200510EA009954BC /* CustomTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 				D198BA112003C465009954BC /* DictionaryOfWords.swift in Sources */,
 				D178695B20023FE30026E25B /* Word+CoreDataClass.swift in Sources */,
 				D178695720023A9F0026E25B /* PersistenceService.swift in Sources */,
+				D198BA15200510EA009954BC /* CustomTextField.swift in Sources */,
 				D17869492002381C0026E25B /* HebrewDictionary.xcdatamodeld in Sources */,
 				D17869412002381C0026E25B /* AppDelegate.swift in Sources */,
 				D198BA132004BFB1009954BC /* AddWordViewDirection.swift in Sources */,

@@ -11,12 +11,14 @@ import CoreData
 
 class DictionaryViewController: UIViewController {
 
-    @IBOutlet weak var tableview: UITableView!
-    @IBOutlet var addWordView: UIView!
-    @IBOutlet weak var addWordTextfield: UITextField!
-    @IBOutlet weak var addTranslationTextfield: UITextField!
-    
     var dictionary: DictionaryOfWords = DictionaryOfWords()
+    
+    @IBOutlet weak var tableview: UITableView!
+    
+    // MARK: - Add word view properties
+    @IBOutlet var addWordView: UIView!
+    @IBOutlet weak var addWordTextfield: CustomTextField!
+    @IBOutlet weak var addTranslationTextfield: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +27,8 @@ class DictionaryViewController: UIViewController {
         tableview.dataSource = self
         tableview.delegate = self
         addWordTextfield.delegate = self
+        
+        addWordTextfield.language = "he"
         
         fetchWords()
         addWordViewToView()
@@ -94,6 +98,12 @@ class DictionaryViewController: UIViewController {
     
     @IBAction func saveWordTapped(_ sender: Any) {
         // add word
+        
+        if addTranslationTextfield.text == nil && addTranslationTextfield.text == nil {
+            return
+        }
+        
+        addWord(text: addWordTextfield.text, translation: addTranslationTextfield.text)
     }
     
     @IBAction func cancelAddWordTapped(_ sender: Any) {
@@ -101,13 +111,19 @@ class DictionaryViewController: UIViewController {
         view.endEditing(true)
     }
     
-    func addWord(text: String, translation: String) {
+    func addWord(text: String?, translation: String?) {
         let word = Word(text: text, translation: translation, context: PersistenceService.context)
         let wordAdded = self.dictionary.addWord(word: word)
         
         if wordAdded {
             PersistenceService.saveContext()
             self.tableview.reloadData()
+            self.moveAddWordView(direction: .down)
+            
+            // clear textfield
+            self.addWordTextfield.text = nil
+            self.addTranslationTextfield.text = nil
+            
         } else {
             // TODO: show alert that word already exists
         }
