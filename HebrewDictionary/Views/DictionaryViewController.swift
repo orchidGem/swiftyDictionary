@@ -101,22 +101,6 @@ class DictionaryViewController: UIViewController {
         view.endEditing(true)
     }
     
-    func showAddWordAlert() {
-        let alert = UIAlertController(title: "Add Word", message: nil, preferredStyle: .alert)
-        alert.addTextField { (textField) in
-            textField.placeholder = "text"
-        }
-        alert.addTextField { (textfield) in
-            textfield.placeholder = "translation"
-        }
-        let addAction = UIAlertAction(title: "Add", style: .default) { (_) in
-            guard let text = alert.textFields?.first?.text, let translation = alert.textFields?.last?.text else { return }
-            self.addWord(text: text, translation: translation)
-        }
-        alert.addAction(addAction)
-        present(alert, animated: true, completion: nil)
-    }
-    
     func addWord(text: String, translation: String) {
         let word = Word(text: text, translation: translation, context: PersistenceService.context)
         let wordAdded = self.dictionary.addWord(word: word)
