@@ -137,7 +137,10 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
         if let words = dictionary.words {
             let word = words[indexPath.item]
             cell.wordLabel.text = word.translationShown ? word.text : word.translation
+            cell.wordLabel.textColor = word.translationShown ? UIColor.blue : UIColor.black
         }
+        
+        cell.selectionStyle = .none
         
         return cell
     }
@@ -154,6 +157,7 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
         word.translationShown = !word.translationShown
         
         cell.wordLabel.text = word.translationShown ? word.text : word.translation
+        cell.wordLabel.textColor = word.translationShown ? UIColor.blue : UIColor.black
         
         tableView.beginUpdates()
         tableView.endUpdates()
