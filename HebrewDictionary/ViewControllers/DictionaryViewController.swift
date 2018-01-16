@@ -12,6 +12,7 @@ import CoreData
 class DictionaryViewController: UIViewController {
 
     var dictionary: DictionaryOfWords = DictionaryOfWords()
+    var keyboardHeight: CGFloat = 0
     
     @IBOutlet weak var tableview: UITableView!
     
@@ -24,19 +25,15 @@ class DictionaryViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        tableview.dataSource = self
-        tableview.delegate = self
-        addWordTextfield.delegate = self
         
+        addWordTextfield.delegate = self
         addWordTextfield.language = "he"
         
+        setUpTableview()
         fetchWords()
         addWordViewToView()
-        
-        // add long press to tableview
-        let longPressTableCell = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressWord))
-        longPressTableCell.minimumPressDuration = 0.2
-        tableview.addGestureRecognizer(longPressTableCell)
+        setupLongPress()
+        setupKeyboardNotifications()
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,6 +42,29 @@ class DictionaryViewController: UIViewController {
     }
     
     //MARK: - custom methods
+    
+    func setUpTableview() {
+        tableview.dataSource = self
+        tableview.delegate = self
+        tableview.rowHeight = UITableViewAutomaticDimension
+        tableview.estimatedRowHeight = 200
+    }
+    
+    func setupKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow,object: nil
+        )
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide,object: nil
+        )
+    }
+    
+    func setupLongPress() {
+        // add long press to tableview
+        let longPressTableCell = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressWord))
+        longPressTableCell.minimumPressDuration = 0.2
+        tableview.addGestureRecognizer(longPressTableCell)
+    }
+    
     func addWordViewToView() {
         view.addSubview(addWordView)
         let height = addWordView.frame.height
@@ -99,7 +119,7 @@ class DictionaryViewController: UIViewController {
     @IBAction func saveWordTapped(_ sender: Any) {
         // add word
         
-        if addTranslationTextfield.text == nil && addTranslationTextfield.text == nil {
+        if let text = addWordTextfield.text, text.isEmpty, let translation = addTranslationTextfield.text, translation.isEmpty {
             return
         }
         
@@ -107,7 +127,7 @@ class DictionaryViewController: UIViewController {
     }
     
     @IBAction func cancelAddWordTapped(_ sender: Any) {
-        moveAddWordView(direction: .down)
+        //moveAddWordView(direction: .down)
         view.endEditing(true)
     }
     
@@ -123,6 +143,7 @@ class DictionaryViewController: UIViewController {
             // clear textfield
             self.addWordTextfield.text = nil
             self.addTranslationTextfield.text = nil
+            self.view.endEditing(true)
             
         } else {
             // TODO: show alert that word already exists
@@ -141,11 +162,10 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.selectionStyle = .none
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! WordTableViewCell
         
         if let words = dictionary.words {
-            cell.textLabel?.text = words[indexPath.item].translation
+            cell.wordLabel.text = words[indexPath.item].translation
         }
         
         return cell
@@ -174,12 +194,12 @@ extension DictionaryViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         print("did begin editing")
-        moveAddWordView(direction: .up)
+        //moveAddWordView(direction: .up)
     }
     
     func moveAddWordView(direction: AddWordViewDirection) {
         
-        var yPoint = view.frame.height - addWordView.frame.height // point for up
+        var yPoint = view.frame.height - (keyboardHeight + addWordView.frame.height)
         
         if direction == .down {
             yPoint = getAddWordViewYPoint()
@@ -188,5 +208,18 @@ extension DictionaryViewController: UITextFieldDelegate {
         UIView.animate(withDuration: 0.3, animations: {
             self.addWordView.frame.origin = CGPoint(x: 0, y: yPoint)
         })
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        print("keyboard will show")
+        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            keyboardHeight = keyboardRectangle.height
+            moveAddWordView(direction: .up)
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        moveAddWordView(direction: .down)
     }
 }

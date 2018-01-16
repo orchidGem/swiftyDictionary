@@ -20,6 +20,7 @@
 		D198BA112003C465009954BC /* DictionaryOfWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = D198BA102003C465009954BC /* DictionaryOfWords.swift */; };
 		D198BA132004BFB1009954BC /* AddWordViewDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D198BA122004BFB0009954BC /* AddWordViewDirection.swift */; };
 		D198BA15200510EA009954BC /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D198BA14200510EA009954BC /* CustomTextField.swift */; };
+		D1AFB8F5200DEFFA002207E1 /* WordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AFB8F4200DEFFA002207E1 /* WordTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		D198BA102003C465009954BC /* DictionaryOfWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryOfWords.swift; sourceTree = "<group>"; };
 		D198BA122004BFB0009954BC /* AddWordViewDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewDirection.swift; sourceTree = "<group>"; };
 		D198BA14200510EA009954BC /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		D1AFB8F4200DEFFA002207E1 /* WordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,14 +72,14 @@
 		D178693F2002381C0026E25B /* HebrewDictionary */ = {
 			isa = PBXGroup;
 			children = (
-				D17869442002381C0026E25B /* Main.storyboard */,
 				D17869402002381C0026E25B /* AppDelegate.swift */,
 				D178695D200240450026E25B /* Views */,
-				D178694A2002381C0026E25B /* Assets.xcassets */,
-				D178694C2002381D0026E25B /* LaunchScreen.storyboard */,
-				D178694F2002381D0026E25B /* Info.plist */,
-				D178695520023A850026E25B /* Services */,
+				D1AFB8F3200DEF8C002207E1 /* ViewControllers */,
 				D178695820023F1E0026E25B /* Models */,
+				D178695520023A850026E25B /* Services */,
+				D178694A2002381C0026E25B /* Assets.xcassets */,
+				D178694F2002381D0026E25B /* Info.plist */,
+				D178694C2002381D0026E25B /* LaunchScreen.storyboard */,
 			);
 			path = HebrewDictionary;
 			sourceTree = "<group>";
@@ -106,10 +108,19 @@
 		D178695D200240450026E25B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D17869422002381C0026E25B /* DictionaryViewController.swift */,
+				D17869442002381C0026E25B /* Main.storyboard */,
 				D198BA14200510EA009954BC /* CustomTextField.swift */,
+				D1AFB8F4200DEFFA002207E1 /* WordTableViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		D1AFB8F3200DEF8C002207E1 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D17869422002381C0026E25B /* DictionaryViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,6 +195,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1AFB8F5200DEFFA002207E1 /* WordTableViewCell.swift in Sources */,
 				D17869432002381C0026E25B /* DictionaryViewController.swift in Sources */,
 				D198BA112003C465009954BC /* DictionaryOfWords.swift in Sources */,
 				D178695B20023FE30026E25B /* Word+CoreDataClass.swift in Sources */,

@@ -9,14 +9,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HebrewDictionary/Views/CustomTextField.swift"
-            timestampString = "537207557.6391"
+            filePath = "HebrewDictionary/Views/DictionaryViewController.swift"
+            timestampString = "537210600.224653"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
-            landmarkName = "textInputMode"
-            landmarkType = "24">
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "saveWordTapped(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
