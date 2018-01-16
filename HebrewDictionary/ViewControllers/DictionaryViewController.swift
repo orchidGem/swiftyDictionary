@@ -106,6 +106,8 @@ class DictionaryViewController: UIViewController {
         if wordAdded {
             PersistenceService.saveContext()
             self.tableview.reloadData()
+            let indexPath = IndexPath(row: (dictionary.words?.count ?? 0) - 1, section: 0)
+            self.tableview.scrollToRow(at: indexPath, at: .top, animated: true)
             self.moveAddWordView(direction: .down)
             
             // clear textfield
