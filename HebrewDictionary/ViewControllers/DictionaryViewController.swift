@@ -15,6 +15,7 @@ class DictionaryViewController: UIViewController {
     var keyboardHeight: CGFloat = 0
     
     @IBOutlet weak var tableview: UITableView!
+    @IBOutlet weak var tableviewBottomConstraint: NSLayoutConstraint!
     
     // MARK: - Add word view properties
     @IBOutlet var addWordView: UIView!
@@ -40,7 +41,7 @@ class DictionaryViewController: UIViewController {
         print("did receive memory warning")
     }
     
-    //MARK: - custom methods
+    //MARK: - Set up methods
     
     func setUpTableview() {
         tableview.dataSource = self
@@ -57,15 +58,8 @@ class DictionaryViewController: UIViewController {
         )
     }
     
-    func addWordViewToView() {
-        view.addSubview(addWordView)
-        let height = addWordView.frame.height
-        let yPoint = getAddWordViewYPoint()
-        addWordView.frame = CGRect(x: 0, y: yPoint, width: view.frame.width, height: height)
-    }
-    
     func getAddWordViewYPoint() -> CGFloat {
-        return view.frame.height - 80
+        return view.frame.height + tableviewBottomConstraint.constant
     }
     
     
@@ -80,6 +74,15 @@ class DictionaryViewController: UIViewController {
             print("error")
         }
     }
+
+    func addWordViewToView() {
+        view.addSubview(addWordView)
+        let height = addWordView.frame.height
+        let yPoint = getAddWordViewYPoint()
+        addWordView.frame = CGRect(x: 0, y: yPoint, width: view.frame.width, height: height)
+    }
+    
+    //MARK: - outlet methods
     
     @IBAction func saveWordTapped(_ sender: Any) {
         // add word

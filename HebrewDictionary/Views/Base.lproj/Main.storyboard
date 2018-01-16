@@ -71,6 +71,7 @@
                         <outlet property="addWordTextfield" destination="YWp-gu-pgy" id="YX7-jD-0DW"/>
                         <outlet property="addWordView" destination="qlf-6D-z3Y" id="wwL-qg-zrY"/>
                         <outlet property="tableview" destination="c1P-E9-bhS" id="oTl-xg-nuq"/>
+                        <outlet property="tableviewBottomConstraint" destination="IXp-eb-MpW" id="l2p-Hd-3Ol"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
