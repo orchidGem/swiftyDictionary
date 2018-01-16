@@ -13,6 +13,8 @@ import CoreData
 @objc(Word)
 public class Word: NSManagedObject {
     
+    var translationShown: Bool = false
+    
     convenience init(text: String?, translation: String?, context: NSManagedObjectContext) {
         self.init(context: context)
         self.text = text

@@ -32,7 +32,6 @@ class DictionaryViewController: UIViewController {
         setUpTableview()
         fetchWords()
         addWordViewToView()
-        setupLongPress()
         setupKeyboardNotifications()
     }
 
@@ -58,13 +57,6 @@ class DictionaryViewController: UIViewController {
         )
     }
     
-    func setupLongPress() {
-        // add long press to tableview
-        let longPressTableCell = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressWord))
-        longPressTableCell.minimumPressDuration = 0.2
-        tableview.addGestureRecognizer(longPressTableCell)
-    }
-    
     func addWordViewToView() {
         view.addSubview(addWordView)
         let height = addWordView.frame.height
@@ -86,33 +78,6 @@ class DictionaryViewController: UIViewController {
             self.tableview.reloadData()
         } catch {
             print("error")
-        }
-    }
-    
-    @objc func longPressWord(longPress: UILongPressGestureRecognizer) {
-        
-        if longPress.state != .began && longPress.state != .ended {
-            return
-        }
-        
-        // get touchpoint and index of cell
-        let touchPoint = longPress.location(in: tableview)
-        guard let indexPath = tableview.indexPathForRow(at: touchPoint) else {
-            return
-        }
-        
-        // get word
-        guard let words = dictionary.words, words.count >= indexPath.row else { return }
-        
-        let word = words[indexPath.row]
-        let cell = tableview.cellForRow(at: indexPath)
-        
-        // show text on began and text on end
-        if longPress.state == .began {
-            cell?.textLabel?.text = word.text
-            
-        } else {
-            cell?.textLabel?.text = word.translation
         }
     }
     
@@ -165,7 +130,8 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! WordTableViewCell
         
         if let words = dictionary.words {
-            cell.wordLabel.text = words[indexPath.item].translation
+            let word = words[indexPath.item]
+            cell.wordLabel.text = word.translationShown ? word.text : word.translation
         }
         
         return cell
@@ -173,10 +139,19 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let words = dictionary.words else { return }
+        guard
+            let words = dictionary.words,
+            let cell = tableView.cellForRow(at: indexPath) as? WordTableViewCell else {
+                return
+        }
         
         let word = words[indexPath.item]
-        word.describeWord()
+        word.translationShown = !word.translationShown
+        
+        cell.wordLabel.text = word.translationShown ? word.text : word.translation
+        
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
