@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D143A901202C6BE70047CFB2 /* WordNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D143A900202C6BE70047CFB2 /* WordNotification.swift */; };
 		D17869412002381C0026E25B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17869402002381C0026E25B /* AppDelegate.swift */; };
 		D17869432002381C0026E25B /* DictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17869422002381C0026E25B /* DictionaryViewController.swift */; };
 		D17869462002381C0026E25B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D17869442002381C0026E25B /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D143A900202C6BE70047CFB2 /* WordNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordNotification.swift; sourceTree = "<group>"; };
 		D178693D2002381C0026E25B /* HebrewDictionary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HebrewDictionary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D17869402002381C0026E25B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D17869422002381C0026E25B /* DictionaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				D198BA102003C465009954BC /* DictionaryOfWords.swift */,
+				D143A900202C6BE70047CFB2 /* WordNotification.swift */,
 				D198BA122004BFB0009954BC /* AddWordViewDirection.swift */,
 				D178695920023FE30026E25B /* Word+CoreDataClass.swift */,
 				D178695E20024BD70026E25B /* Extensions.swift */,
@@ -199,6 +202,7 @@
 				D17869432002381C0026E25B /* DictionaryViewController.swift in Sources */,
 				D198BA112003C465009954BC /* DictionaryOfWords.swift in Sources */,
 				D178695B20023FE30026E25B /* Word+CoreDataClass.swift in Sources */,
+				D143A901202C6BE70047CFB2 /* WordNotification.swift in Sources */,
 				D178695720023A9F0026E25B /* PersistenceService.swift in Sources */,
 				D198BA15200510EA009954BC /* CustomTextField.swift in Sources */,
 				D17869492002381C0026E25B /* HebrewDictionary.xcdatamodeld in Sources */,
