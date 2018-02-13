@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         WordNotification.requestionNotificationAuthorization()
+        WordNotification.setUpCategories()
         
         return true
     }
@@ -48,6 +50,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PersistenceService.saveContext()
         //WordNotification.schedule()
     }
-
 }
 

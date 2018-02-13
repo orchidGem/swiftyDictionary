@@ -19,4 +19,5 @@ extension Word {
 
     @NSManaged public var text: String?
     @NSManaged public var translation: String?
+    @NSManaged public var shownInNotification: Bool
 }

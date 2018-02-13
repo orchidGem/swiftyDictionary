@@ -22,7 +22,36 @@
 		D198BA132004BFB1009954BC /* AddWordViewDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D198BA122004BFB0009954BC /* AddWordViewDirection.swift */; };
 		D198BA15200510EA009954BC /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D198BA14200510EA009954BC /* CustomTextField.swift */; };
 		D1AFB8F5200DEFFA002207E1 /* WordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AFB8F4200DEFFA002207E1 /* WordTableViewCell.swift */; };
+		D1D75FF72033465000FD68AD /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D75FF62033465000FD68AD /* UserNotifications.framework */; };
+		D1D75FF92033465000FD68AD /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D75FF82033465000FD68AD /* UserNotificationsUI.framework */; };
+		D1D75FFC2033465000FD68AD /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D75FFB2033465000FD68AD /* NotificationViewController.swift */; };
+		D1D75FFF2033465000FD68AD /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1D75FFD2033465000FD68AD /* MainInterface.storyboard */; };
+		D1D760032033465000FD68AD /* WordNotificationViewController.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D1D75FF42033465000FD68AD /* WordNotificationViewController.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D1D760012033465000FD68AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D17869352002381C0026E25B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D1D75FF32033465000FD68AD;
+			remoteInfo = WordNotificationViewController;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D1D760072033465000FD68AD /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D1D760032033465000FD68AD /* WordNotificationViewController.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		D143A900202C6BE70047CFB2 /* WordNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordNotification.swift; sourceTree = "<group>"; };
@@ -42,6 +71,12 @@
 		D198BA122004BFB0009954BC /* AddWordViewDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewDirection.swift; sourceTree = "<group>"; };
 		D198BA14200510EA009954BC /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		D1AFB8F4200DEFFA002207E1 /* WordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordTableViewCell.swift; sourceTree = "<group>"; };
+		D1D75FF42033465000FD68AD /* WordNotificationViewController.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WordNotificationViewController.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1D75FF62033465000FD68AD /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		D1D75FF82033465000FD68AD /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		D1D75FFB2033465000FD68AD /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		D1D75FFE2033465000FD68AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		D1D760002033465000FD68AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +87,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D1D75FF12033465000FD68AD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1D75FF92033465000FD68AD /* UserNotificationsUI.framework in Frameworks */,
+				D1D75FF72033465000FD68AD /* UserNotifications.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -59,6 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				D178693F2002381C0026E25B /* HebrewDictionary */,
+				D1D75FFA2033465000FD68AD /* WordNotificationViewController */,
+				D1D75FF52033465000FD68AD /* Frameworks */,
 				D178693E2002381C0026E25B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -67,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				D178693D2002381C0026E25B /* HebrewDictionary.app */,
+				D1D75FF42033465000FD68AD /* WordNotificationViewController.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -126,6 +173,25 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		D1D75FF52033465000FD68AD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D1D75FF62033465000FD68AD /* UserNotifications.framework */,
+				D1D75FF82033465000FD68AD /* UserNotificationsUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D1D75FFA2033465000FD68AD /* WordNotificationViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D1D75FFB2033465000FD68AD /* NotificationViewController.swift */,
+				D1D75FFD2033465000FD68AD /* MainInterface.storyboard */,
+				D1D760002033465000FD68AD /* Info.plist */,
+			);
+			path = WordNotificationViewController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -136,15 +202,34 @@
 				D17869392002381C0026E25B /* Sources */,
 				D178693A2002381C0026E25B /* Frameworks */,
 				D178693B2002381C0026E25B /* Resources */,
+				D1D760072033465000FD68AD /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D1D760022033465000FD68AD /* PBXTargetDependency */,
 			);
 			name = HebrewDictionary;
 			productName = HebrewDictionary;
 			productReference = D178693D2002381C0026E25B /* HebrewDictionary.app */;
 			productType = "com.apple.product-type.application";
+		};
+		D1D75FF32033465000FD68AD /* WordNotificationViewController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D1D760062033465000FD68AD /* Build configuration list for PBXNativeTarget "WordNotificationViewController" */;
+			buildPhases = (
+				D1D75FF02033465000FD68AD /* Sources */,
+				D1D75FF12033465000FD68AD /* Frameworks */,
+				D1D75FF22033465000FD68AD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WordNotificationViewController;
+			productName = WordNotificationViewController;
+			productReference = D1D75FF42033465000FD68AD /* WordNotificationViewController.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -157,6 +242,10 @@
 				ORGANIZATIONNAME = "Laura Evans";
 				TargetAttributes = {
 					D178693C2002381C0026E25B = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					D1D75FF32033465000FD68AD = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 					};
@@ -176,6 +265,7 @@
 			projectRoot = "";
 			targets = (
 				D178693C2002381C0026E25B /* HebrewDictionary */,
+				D1D75FF32033465000FD68AD /* WordNotificationViewController */,
 			);
 		};
 /* End PBXProject section */
@@ -188,6 +278,14 @@
 				D178694E2002381D0026E25B /* LaunchScreen.storyboard in Resources */,
 				D178694B2002381C0026E25B /* Assets.xcassets in Resources */,
 				D17869462002381C0026E25B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D1D75FF22033465000FD68AD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1D75FFF2033465000FD68AD /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,7 +311,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D1D75FF02033465000FD68AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1D75FFC2033465000FD68AD /* NotificationViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D1D760022033465000FD68AD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D1D75FF32033465000FD68AD /* WordNotificationViewController */;
+			targetProxy = D1D760012033465000FD68AD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D17869442002381C0026E25B /* Main.storyboard */ = {
@@ -230,6 +344,14 @@
 				D178694D2002381D0026E25B /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D1D75FFD2033465000FD68AD /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D1D75FFE2033465000FD68AD /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -345,6 +467,7 @@
 		D17869532002381D0026E25B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 859LK3T2WH;
@@ -360,6 +483,7 @@
 		D17869542002381D0026E25B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 859LK3T2WH;
@@ -367,6 +491,36 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lauraevans.HebrewDictionary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D1D760042033465000FD68AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 859LK3T2WH;
+				INFOPLIST_FILE = WordNotificationViewController/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lauraevans.HebrewDictionary.WordNotificationViewController;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D1D760052033465000FD68AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 859LK3T2WH;
+				INFOPLIST_FILE = WordNotificationViewController/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lauraevans.HebrewDictionary.WordNotificationViewController;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -389,6 +543,15 @@
 			buildConfigurations = (
 				D17869532002381D0026E25B /* Debug */,
 				D17869542002381D0026E25B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D1D760062033465000FD68AD /* Build configuration list for PBXNativeTarget "WordNotificationViewController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1D760042033465000FD68AD /* Debug */,
+				D1D760052033465000FD68AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

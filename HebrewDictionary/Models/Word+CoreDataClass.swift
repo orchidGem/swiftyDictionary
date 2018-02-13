@@ -22,6 +22,14 @@ public class Word: NSManagedObject {
     }
     
     func describeWord() {
-        print("text: \(self.text), translation: \(self.translation)")
+        print("text: \(self.text ?? ""), translation: \(self.translation ?? "")")
+    }
+    
+    func markAsShownInNotification() {
+        self.shownInNotification = true
+    }
+    
+    func markAsNotShownInNotification() {
+        self.shownInNotification = false
     }
 }
