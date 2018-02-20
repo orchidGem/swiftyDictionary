@@ -31,6 +31,13 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         if let userInfo = notification.request.content.userInfo as? [String: String], let translation = userInfo["translation"] {
             self.translationLabel.text = translation
         }
+        
+        let when = DispatchTime.now() + 5 // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            // Your code with delay
+            WordNotification.schedule()
+        }
+        
     }
     
     func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {

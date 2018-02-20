@@ -35,10 +35,19 @@ class WordNotification: NSObject {
         content.sound = UNNotificationSound.default()
         content.categoryIdentifier = "wordCategory"
         content.userInfo = ["translation": translation]
+        
+        // default trigger is one hour - more if it's ten at night
+        var hours: Double = 1
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        if currentHour > 22 {
+            return
+        }
 
 //        let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self.date)
 //        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,repeats: false)
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60*60*hours, repeats: false)
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2, repeats: false)
 
         let request = UNNotificationRequest(identifier: "wordNotification", content: content, trigger: trigger)
         let center = UNUserNotificationCenter.current()
