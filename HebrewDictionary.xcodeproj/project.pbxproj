@@ -7,14 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D143A901202C6BE70047CFB2 /* WordNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D143A900202C6BE70047CFB2 /* WordNotification.swift */; };
+		D143A901202C6BE70047CFB2 /* WordNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D143A900202C6BE70047CFB2 /* WordNotificationsManager.swift */; };
+		D14B15AA203DAA2B0068E8EB /* WordNotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14B15A9203DAA2B0068E8EB /* WordNotificationType.swift */; };
+		D14B15AB203DABBB0068E8EB /* WordNotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14B15A9203DAA2B0068E8EB /* WordNotificationType.swift */; };
 		D17869412002381C0026E25B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17869402002381C0026E25B /* AppDelegate.swift */; };
 		D17869432002381C0026E25B /* DictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17869422002381C0026E25B /* DictionaryViewController.swift */; };
 		D17869462002381C0026E25B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D17869442002381C0026E25B /* Main.storyboard */; };
 		D178694B2002381C0026E25B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D178694A2002381C0026E25B /* Assets.xcassets */; };
 		D178694E2002381D0026E25B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D178694C2002381D0026E25B /* LaunchScreen.storyboard */; };
 		D178695F20024BD70026E25B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D178695E20024BD70026E25B /* Extensions.swift */; };
-		D1837F5E20345E3600B39958 /* WordNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D143A900202C6BE70047CFB2 /* WordNotification.swift */; };
+		D1837F5E20345E3600B39958 /* WordNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D143A900202C6BE70047CFB2 /* WordNotificationsManager.swift */; };
 		D198BA112003C465009954BC /* DictionaryOfWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = D198BA102003C465009954BC /* DictionaryOfWords.swift */; };
 		D198BA132004BFB1009954BC /* AddWordViewDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D198BA122004BFB0009954BC /* AddWordViewDirection.swift */; };
 		D198BA15200510EA009954BC /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D198BA14200510EA009954BC /* CustomTextField.swift */; };
@@ -55,7 +57,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D143A900202C6BE70047CFB2 /* WordNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordNotification.swift; sourceTree = "<group>"; };
+		D143A900202C6BE70047CFB2 /* WordNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordNotificationsManager.swift; sourceTree = "<group>"; };
+		D14B15A9203DAA2B0068E8EB /* WordNotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordNotificationType.swift; sourceTree = "<group>"; };
 		D178693D2002381C0026E25B /* HebrewDictionary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HebrewDictionary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D17869402002381C0026E25B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D17869422002381C0026E25B /* DictionaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +141,7 @@
 		D178695520023A850026E25B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D143A900202C6BE70047CFB2 /* WordNotificationsManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -146,11 +150,11 @@
 			isa = PBXGroup;
 			children = (
 				D198BA102003C465009954BC /* DictionaryOfWords.swift */,
-				D143A900202C6BE70047CFB2 /* WordNotification.swift */,
 				D198BA122004BFB0009954BC /* AddWordViewDirection.swift */,
 				D178695E20024BD70026E25B /* Extensions.swift */,
 				D1E5EBB9203C41060012C3D2 /* DataManager.swift */,
 				D1E5EBBB203C42460012C3D2 /* Word.swift */,
+				D14B15A9203DAA2B0068E8EB /* WordNotificationType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -310,11 +314,12 @@
 				D1AFB8F5200DEFFA002207E1 /* WordTableViewCell.swift in Sources */,
 				D17869432002381C0026E25B /* DictionaryViewController.swift in Sources */,
 				D198BA112003C465009954BC /* DictionaryOfWords.swift in Sources */,
-				D143A901202C6BE70047CFB2 /* WordNotification.swift in Sources */,
+				D143A901202C6BE70047CFB2 /* WordNotificationsManager.swift in Sources */,
 				D198BA15200510EA009954BC /* CustomTextField.swift in Sources */,
 				D1E5EBBC203C42460012C3D2 /* Word.swift in Sources */,
 				D17869412002381C0026E25B /* AppDelegate.swift in Sources */,
 				D198BA132004BFB1009954BC /* AddWordViewDirection.swift in Sources */,
+				D14B15AA203DAA2B0068E8EB /* WordNotificationType.swift in Sources */,
 				D1E5EBBA203C41060012C3D2 /* DataManager.swift in Sources */,
 				D178695F20024BD70026E25B /* Extensions.swift in Sources */,
 			);
@@ -324,9 +329,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D1837F5E20345E3600B39958 /* WordNotification.swift in Sources */,
+				D1837F5E20345E3600B39958 /* WordNotificationsManager.swift in Sources */,
 				D1E5EBBE203C42DC0012C3D2 /* DataManager.swift in Sources */,
 				D1E5EBBD203C42CE0012C3D2 /* Word.swift in Sources */,
+				D14B15AB203DABBB0068E8EB /* WordNotificationType.swift in Sources */,
 				D1D75FFC2033465000FD68AD /* NotificationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

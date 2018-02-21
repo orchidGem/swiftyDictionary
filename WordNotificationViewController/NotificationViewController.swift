@@ -12,6 +12,13 @@ import UserNotificationsUI
 
 class NotificationViewController: UIViewController, UNNotificationContentExtension {
     
+    var word: Word? {
+        didSet {
+            textLabel.text = word?.text
+            translationLabel.text = word?.translation
+        }
+    }
+    
     @IBOutlet weak var textLabel : UILabel!
     @IBOutlet weak var translationLabel : UILabel!
     
@@ -22,21 +29,14 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         preferredContentSize = CGSize(width: size.width, height: size.height / 2)
         
         translationLabel.isHidden = true
+        word = WordNotificationsManager.getRandomWord()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        WordNotificationsManager.schedule(type: .Hourly)
     }
     
     func didReceive(_ notification: UNNotification) {
-        
-        self.textLabel.text = notification.request.content.body
-        
-        if let userInfo = notification.request.content.userInfo as? [String: String], let translation = userInfo["translation"] {
-            self.translationLabel.text = translation
-        }
-        
-        let when = DispatchTime.now() + 5 // change 2 to desired number of seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            // Your code with delay
-            WordNotification.schedule()
-        }
         
     }
     
@@ -44,9 +44,16 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         
         if response.actionIdentifier == "viewTranslation" {
             self.viewTranslation()
-        } else {
+        } else if response.actionIdentifier == "needsPractice" {
             self.textLabel.text = "needs practice!"
+        } else {
+            showAnotherWord()
         }
+    }
+    
+    func showAnotherWord() {
+        translationLabel.isHidden = true
+        word = WordNotificationsManager.getRandomWord()
     }
     
     func viewTranslation() {
