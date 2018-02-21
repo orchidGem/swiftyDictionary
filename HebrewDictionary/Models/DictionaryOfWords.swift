@@ -17,6 +17,7 @@ class DictionaryOfWords: NSObject {
     
     func setWords(words: [Word]) {
         self.words = words
+        self.shuffleWords()
     }
     
     func getAllWords() -> [Word]? {
@@ -59,6 +60,10 @@ class DictionaryOfWords: NSObject {
     
     func showTranslation(_ show: Bool, index: Int) {
         self.words![index].translationShown = show
+    }
+    
+    func shuffleWords() {
+        self.words?.shuffle()
     }
     
 }

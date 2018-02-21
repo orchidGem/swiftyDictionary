@@ -125,6 +125,14 @@ class DictionaryViewController: UIViewController {
         }
         
     }
+    
+    @IBAction func shuffle(_ sender: Any) {
+        if dictionary.words == nil {
+            return
+        }
+        dictionary.shuffleWords()
+        tableview.reloadData()
+    }
 }
 
 extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
@@ -177,7 +185,8 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func setTextAndColor(word: Word, cell: WordTableViewCell) {
         cell.wordLabel.text = word.translationShown ? word.text : word.translation
-        cell.wordLabel.textColor = word.translationShown ? UIColor(named: "darkGreen") : UIColor(named:"darkGray")
+        cell.wordLabel.textColor = word.translationShown ? UIColor.white : UIColor(named:"darkGray")
+        cell.backgroundColor = word.translationShown ? UIColor(named: "darkGreen") : UIColor.clear
     }
 }
 
