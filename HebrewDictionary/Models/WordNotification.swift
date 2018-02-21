@@ -27,38 +27,6 @@ class WordNotification: NSObject {
     
     private func schedule(){
         
-        guard let text = self.word.text, let translation = self.word.translation else { return }
-
-        let content = UNMutableNotificationContent()
-        content.title = "Quick Word Test!"
-        content.body = text
-        content.sound = UNNotificationSound.default()
-        content.categoryIdentifier = "wordCategory"
-        content.userInfo = ["translation": translation]
-        
-        // default trigger is one hour - more if it's ten at night
-        var hours: Double = 1
-        let currentHour = Calendar.current.component(.hour, from: Date())
-        if currentHour > 22 {
-            return
-        }
-
-//        let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self.date)
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,repeats: false)
-//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60*60*hours, repeats: false)
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2, repeats: false)
-
-        let request = UNNotificationRequest(identifier: "wordNotification", content: content, trigger: trigger)
-        let center = UNUserNotificationCenter.current()
-        center.removeAllPendingNotificationRequests()
-        center.add(request, withCompletionHandler: { (error) in
-            if let error = error {
-                print("error", error)
-            } else {
-                print("notification scheduled")
-            }
-        })
     }
     
     static func requestionNotificationAuthorization() {
@@ -69,6 +37,7 @@ class WordNotification: NSObject {
             (granted, error) in
             if granted {
                 print("permission granted")
+                self.setUpCategories()
             }
         }
     }
@@ -90,23 +59,17 @@ class WordNotification: NSObject {
     
     private static func chooseRandomWord() -> Word {
         
-        let fetchRequest: NSFetchRequest<Word> = Word.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "shownInNotification == false")
+        let words = DataManager.loadAll(Word.self, identifier: Word.identifier).sorted(by: {
+            $0.createdDate < $1.createdDate
+        })
         
-        do {
-            let words = try PersistenceService.context.fetch(fetchRequest)
-            
-            if words.count == 0 {
-                return Word(text: "Test", translation: "Mivchan", context: PersistenceService.context)
-            }
-            
-            let randomNum = Int(arc4random_uniform(UInt32(words.count - 1)))
-            return words[randomNum]
-        } catch {
-            print("error")
+        if words.count < 0 {
+            return Word(text: "text", translation: "translation", translationShown: false, shownInNotification: false, createdDate: Date(), itemIdentifier: UUID())
         }
         
-        return Word(text: "Test", translation: "Mivchan", context: PersistenceService.context)
+        let randomNumber = Int(arc4random_uniform(UInt32(words.count)))
+        
+        return words[randomNumber]
     }
     
 }

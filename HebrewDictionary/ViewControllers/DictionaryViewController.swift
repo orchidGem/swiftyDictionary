@@ -13,6 +13,7 @@ class DictionaryViewController: UIViewController {
 
     var dictionary: DictionaryOfWords = DictionaryOfWords()
     var keyboardHeight: CGFloat = 0
+    var fadedView: UIView!
     
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var tableviewBottomConstraint: NSLayoutConstraint!
@@ -64,15 +65,12 @@ class DictionaryViewController: UIViewController {
     
     
     func fetchWords() {
-        let fetchRequest: NSFetchRequest<Word> = Word.fetchRequest()
+        let words = DataManager.loadAll(Word.self, identifier: Word.identifier).sorted(by: {
+            $0.createdDate < $1.createdDate
+        })
         
-        do {
-            let words = try PersistenceService.context.fetch(fetchRequest)
-            self.dictionary.setWords(words: words)
-            self.tableview.reloadData()
-        } catch {
-            print("error")
-        }
+        self.dictionary.setWords(words: words)
+        self.tableview.reloadData()
     }
 
     func addWordViewToView() {
@@ -80,6 +78,13 @@ class DictionaryViewController: UIViewController {
         let height = addWordView.frame.height
         let yPoint = getAddWordViewYPoint()
         addWordView.frame = CGRect(x: 0, y: yPoint, width: view.frame.width, height: height)
+        
+        // add faded background to view
+        fadedView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        fadedView.backgroundColor = UIColor.darkGray
+        fadedView.alpha = 0
+        view.insertSubview(fadedView, belowSubview: addWordView)
+        
     }
     
     //MARK: - outlet methods
@@ -95,16 +100,16 @@ class DictionaryViewController: UIViewController {
     }
     
     @IBAction func cancelAddWordTapped(_ sender: Any) {
-        //moveAddWordView(direction: .down)
         view.endEditing(true)
     }
     
     func addWord(text: String?, translation: String?) {
-        let word = Word(text: text, translation: translation, context: PersistenceService.context)
+        
+        let word = Word(text: text, translation: translation, translationShown: false, shownInNotification: false, createdDate: Date(), itemIdentifier: UUID())
+        
         let wordAdded = self.dictionary.addWord(word: word)
         
         if wordAdded {
-            PersistenceService.saveContext()
             self.tableview.reloadData()
             let indexPath = IndexPath(row: (dictionary.words?.count ?? 0) - 1, section: 0)
             self.tableview.scrollToRow(at: indexPath, at: .top, animated: true)
@@ -136,8 +141,7 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
         
         if let words = dictionary.words {
             let word = words[indexPath.item]
-            cell.wordLabel.text = word.translationShown ? word.text : word.translation
-            cell.wordLabel.textColor = word.translationShown ? UIColor.blue : UIColor.black
+            setTextAndColor(word: word, cell: cell)
         }
         
         cell.selectionStyle = .none
@@ -148,16 +152,16 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         guard
-            let words = dictionary.words,
+            var words = dictionary.words,
             let cell = tableView.cellForRow(at: indexPath) as? WordTableViewCell else {
                 return
         }
         
-        let word = words[indexPath.item]
+        var word = words[indexPath.item]
         word.translationShown = !word.translationShown
+        dictionary.showTranslation( word.translationShown, index: indexPath.row)
         
-        cell.wordLabel.text = word.translationShown ? word.text : word.translation
-        cell.wordLabel.textColor = word.translationShown ? UIColor.blue : UIColor.black
+        setTextAndColor(word: word, cell: cell)
         
         tableView.beginUpdates()
         tableView.endUpdates()
@@ -169,6 +173,11 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
             dictionary.deleteWord(byIndex: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+    
+    func setTextAndColor(word: Word, cell: WordTableViewCell) {
+        cell.wordLabel.text = word.translationShown ? word.text : word.translation
+        cell.wordLabel.textColor = word.translationShown ? UIColor(named: "darkGreen") : UIColor(named:"darkGray")
     }
 }
 
@@ -189,8 +198,25 @@ extension DictionaryViewController: UITextFieldDelegate {
             yPoint = getAddWordViewYPoint()
         }
         
+        let show = direction == .down ? false : true
+        
+        animateFadedBackground(show: show)
+        
         UIView.animate(withDuration: 0.3, animations: {
             self.addWordView.frame.origin = CGPoint(x: 0, y: yPoint)
+        })
+    }
+    
+    func animateFadedBackground(show: Bool) {
+        
+        var alpha: CGFloat = 0 // default for hidden
+        
+        if show {
+            alpha = 0.5
+        }
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.fadedView.alpha = alpha
         })
     }
     

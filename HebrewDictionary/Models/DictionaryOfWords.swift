@@ -41,6 +41,7 @@ class DictionaryOfWords: NSObject {
             return false
         } else {
             self.words?.append(word)
+            word.saveItem()
             return true
         }
     }
@@ -52,9 +53,12 @@ class DictionaryOfWords: NSObject {
     
     func deleteWord(byIndex: Int) {
         if let word = self.words?.remove(at: byIndex) {
-            PersistenceService.context.delete(word)
-            PersistenceService.saveContext()
+            word.deleteItem()
         }
+    }
+    
+    func showTranslation(_ show: Bool, index: Int) {
+        self.words![index].translationShown = show
     }
     
 }
