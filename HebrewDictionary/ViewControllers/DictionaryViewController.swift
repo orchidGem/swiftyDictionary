@@ -14,6 +14,7 @@ class DictionaryViewController: UIViewController {
     var dictionary: DictionaryOfWords = DictionaryOfWords()
     var keyboardHeight: CGFloat = 0
     var fadedView: UIView!
+    var editedWord: Word?
     
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var tableviewBottomConstraint: NSLayoutConstraint!
@@ -88,13 +89,17 @@ class DictionaryViewController: UIViewController {
     //MARK: - outlet methods
     
     @IBAction func saveWordTapped(_ sender: Any) {
-        // add word
         
         if let text = addWordTextfield.text, text.isEmpty, let translation = addTranslationTextfield.text, translation.isEmpty {
             return
         }
         
-        addWord(text: addWordTextfield.text, translation: addTranslationTextfield.text)
+        if let editedWord = editedWord {
+            editedWord.saveItem()
+            self.editedWord = nil
+        } else {
+            addWord(text: addWordTextfield.text, translation: addTranslationTextfield.text)
+        }
     }
     
     @IBAction func cancelAddWordTapped(_ sender: Any) {
@@ -179,12 +184,34 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
             completionHandler(true)
         }
         
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, completionHandler) in
+            self.showEditWord(indexPath: indexPath)
+            completionHandler(true)
+        }
+        
+        deleteAction.backgroundColor = UIColor(named: "red")
+        deleteAction.image = UIImage(named: "delete")
+        editAction.backgroundColor = UIColor(named: "lightGreen")
+        editAction.image = UIImage(named: "edit")
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
         return configuration
     }
     
     func deleteWord(indexPath: IndexPath) {
         dictionary.deleteWord(byIndex: indexPath.row)
+    }
+    
+    func showEditWord(indexPath: IndexPath) {
+        guard let word = dictionary.words?[indexPath.row] else {
+            return
+        }
+        
+        editedWord = word
+        
+        addWordTextfield.becomeFirstResponder()
+        addWordTextfield.text = word.text
+        addTranslationTextfield.text = word.translation
     }
     
     func setTextAndColor(word: Word, cell: WordTableViewCell) {
