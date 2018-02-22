@@ -35,9 +35,12 @@ class DataManager {
         
         do {
             let data = try encoder.encode(object)
-            if FileManager.default.fileExists(atPath: url.path) {
+            do {
                 try FileManager.default.removeItem(at: url)
+            } catch {
+                print("file not found")
             }
+            
             FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
         } catch {
             fatalError(error.localizedDescription)
@@ -48,7 +51,7 @@ class DataManager {
     // Load any kind of codable objects
     static func load <T:Decodable> (_ fileName: String, with type: T.Type, identifier: String?) -> T? {
         let url = getDocumentDirectory(identifier: identifier).appendingPathComponent(fileName, isDirectory: false)
-        if !FileManager.default.fileExists(atPath: url.path) {
+        if identifier == nil &&  FileManager.default.fileExists(atPath: url.path) == false {
             fatalError("file not found at path \(url.path)")
         }
         
@@ -68,7 +71,7 @@ class DataManager {
     // load data from a file
     static func loadData (_ fileName: String, identifier: String?) -> Data? {
         let url = getDocumentDirectory(identifier: identifier).appendingPathComponent(fileName, isDirectory: false)
-        if !FileManager.default.fileExists(atPath: url.path) {
+        if identifier == nil && FileManager.default.fileExists(atPath: url.path) == false {
             fatalError("file not found at path \(url.path)")
         }
         
@@ -101,13 +104,17 @@ class DataManager {
     static func delete (_ fileName: String, identifier: String?) {
         let url = getDocumentDirectory(identifier: identifier).appendingPathComponent(fileName, isDirectory: false)
         
-        if FileManager.default.fileExists(atPath: fileName) {
-            do {
-                try FileManager.default.removeItem(at: url)
-            } catch {
-                fatalError(error.localizedDescription)
-            }
+        if identifier == nil && FileManager.default.fileExists(atPath: fileName) == false {
+            print("file does not exist")
+            return
         }
+        
+        do {
+            try FileManager.default.removeItem(at: url)
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+
     }
 }
 

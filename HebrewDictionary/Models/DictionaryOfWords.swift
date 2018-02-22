@@ -53,9 +53,8 @@ class DictionaryOfWords: NSObject {
     }
     
     func deleteWord(byIndex: Int) {
-        if let word = self.words?.remove(at: byIndex) {
-            word.deleteItem()
-        }
+        self.words?[byIndex].deleteItem()
+        self.words?.remove(at: byIndex)
     }
     
     func showTranslation(_ show: Bool, index: Int) {

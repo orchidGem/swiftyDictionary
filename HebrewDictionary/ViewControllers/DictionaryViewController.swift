@@ -65,9 +65,7 @@ class DictionaryViewController: UIViewController {
     
     
     func fetchWords() {
-        let words = DataManager.loadAll(Word.self, identifier: Word.identifier).sorted(by: {
-            $0.createdDate < $1.createdDate
-        })
+        let words = DataManager.loadAll(Word.self, identifier: Word.identifier)
         
         self.dictionary.setWords(words: words)
         self.tableview.reloadData()
@@ -174,13 +172,19 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.beginUpdates()
         tableView.endUpdates()
     }
-
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        
-        if editingStyle == .delete {
-            dictionary.deleteWord(byIndex: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
+            self.deleteWord(indexPath: indexPath)
+            completionHandler(true)
         }
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
+    }
+    
+    func deleteWord(indexPath: IndexPath) {
+        dictionary.deleteWord(byIndex: indexPath.row)
     }
     
     func setTextAndColor(word: Word, cell: WordTableViewCell) {
