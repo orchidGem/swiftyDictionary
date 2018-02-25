@@ -28,7 +28,7 @@ class DataManager {
     }
     
     // Save any kind of codable objects
-    static func save <T: Encodable> (_ object: T, with fileName: String, identifier: String?) {
+    static func save <T: Encodable> (_ object: T, with fileName: String, identifier: String?) -> Bool {
         let url = getDocumentDirectory(identifier: identifier).appendingPathComponent(fileName, isDirectory: false)
         
         let encoder = JSONEncoder()
@@ -42,8 +42,10 @@ class DataManager {
             }
             
             FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
+            
+            return true
         } catch {
-            fatalError(error.localizedDescription)
+            return false
         }
         
     }

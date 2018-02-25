@@ -90,15 +90,14 @@ class DictionaryViewController: UIViewController {
     
     @IBAction func saveWordTapped(_ sender: Any) {
         
-        if let text = addWordTextfield.text, text.isEmpty, let translation = addTranslationTextfield.text, translation.isEmpty {
+        guard let text = addWordTextfield.text, !text.isEmpty, let translation = addTranslationTextfield.text, !translation.isEmpty else {
             return
         }
         
-        if let editedWord = editedWord {
-            editedWord.saveItem()
-            self.editedWord = nil
+        if let editedWord = self.editedWord {
+            dictionary.editWord(id: editedWord.itemIdentifier, text: text, translation: translation, completionHandler: clearAddWordView)
         } else {
-            addWord(text: addWordTextfield.text, translation: addTranslationTextfield.text)
+            addWord(text: addWordTextfield.text, translation: addTranslationTextfield.text, completionHandler: clearAddWordView)
         }
     }
     
@@ -106,13 +105,13 @@ class DictionaryViewController: UIViewController {
         view.endEditing(true)
     }
     
-    func addWord(text: String?, translation: String?) {
-        
-        let word = Word(text: text, translation: translation, translationShown: false, shownInNotification: false, createdDate: Date(), itemIdentifier: UUID())
-        
-        let wordAdded = self.dictionary.addWord(word: word)
-        
-        if wordAdded {
+    func clearAddWordView(_ success: Bool) {
+        if success {
+            
+            if self.editedWord != nil {
+                self.editedWord = nil
+            }
+            
             self.tableview.reloadData()
             let indexPath = IndexPath(row: (dictionary.words?.count ?? 0) - 1, section: 0)
             self.tableview.scrollToRow(at: indexPath, at: .top, animated: true)
@@ -122,9 +121,22 @@ class DictionaryViewController: UIViewController {
             self.addWordTextfield.text = nil
             self.addTranslationTextfield.text = nil
             self.view.endEditing(true)
+        } else {
+            print("didn't add word :(")
+        }
+    }
+    
+    func addWord(text: String?, translation: String?, completionHandler: (Bool) -> Void) {
+        
+        let word = Word(text: text, translation: translation, translationShown: false, shownInNotification: false, createdDate: Date(), itemIdentifier: UUID())
+        
+        let wordAdded = self.dictionary.addWord(word: word)
+        
+        if wordAdded {
+            completionHandler(true)
             
         } else {
-            // TODO: show alert that word already exists
+            completionHandler(false)
         }
         
     }
@@ -271,5 +283,9 @@ extension DictionaryViewController: UITextFieldDelegate {
     
     @objc func keyboardWillHide(_ notification: Notification) {
         moveAddWordView(direction: .down)
+        
+        if self.editedWord != nil {
+            self.editedWord = nil
+        }
     }
 }

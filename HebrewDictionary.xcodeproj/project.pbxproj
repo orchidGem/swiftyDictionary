@@ -149,12 +149,12 @@
 		D178695820023F1E0026E25B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D198BA102003C465009954BC /* DictionaryOfWords.swift */,
-				D198BA122004BFB0009954BC /* AddWordViewDirection.swift */,
-				D178695E20024BD70026E25B /* Extensions.swift */,
 				D1E5EBB9203C41060012C3D2 /* DataManager.swift */,
 				D1E5EBBB203C42460012C3D2 /* Word.swift */,
+				D198BA102003C465009954BC /* DictionaryOfWords.swift */,
+				D198BA122004BFB0009954BC /* AddWordViewDirection.swift */,
 				D14B15A9203DAA2B0068E8EB /* WordNotificationType.swift */,
+				D178695E20024BD70026E25B /* Extensions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

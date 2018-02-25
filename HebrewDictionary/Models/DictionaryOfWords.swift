@@ -47,6 +47,19 @@ class DictionaryOfWords: NSObject {
         }
     }
     
+    func editWord(id: UUID, text: String, translation: String, completionHandler: (Bool) -> Void) {
+        if let index = self.words?.index(where: { (word) -> Bool in
+            word.itemIdentifier == id
+        }) {
+            self.words![index].text = text
+            self.words![index].translation = translation
+            self.words![index].saveItem()
+            completionHandler(true)
+        } else {
+            completionHandler(false)
+        }
+    }
+    
     func deleteWord(byWord: Word) -> Bool {
         print("delete word")
         return true
