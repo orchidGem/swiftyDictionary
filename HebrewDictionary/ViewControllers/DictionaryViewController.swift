@@ -10,11 +10,14 @@ import UIKit
 import CoreData
 
 class DictionaryViewController: UIViewController {
-
+    
     var dictionary: DictionaryOfWords = DictionaryOfWords()
     var keyboardHeight: CGFloat = 0
     var fadedView: UIView!
     var editedWord: Word?
+    let search = UISearchController(searchResultsController: nil)
+    var searchResults: [Word]?
+    var showAddWordView: Bool = false
     
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var tableviewBottomConstraint: NSLayoutConstraint!
@@ -33,6 +36,7 @@ class DictionaryViewController: UIViewController {
         addWordTextfield.language = "he"
         
         setUpTableview()
+        setupSearchBar()
         fetchWords()
         addWordViewToView()
         setupKeyboardNotifications()
@@ -50,6 +54,14 @@ class DictionaryViewController: UIViewController {
         tableview.delegate = self
         tableview.rowHeight = UITableViewAutomaticDimension
         tableview.estimatedRowHeight = 200
+    }
+    
+    func setupSearchBar() {
+        
+        search.searchResultsUpdater = self
+        search.searchBar.delegate = self
+        search.dimsBackgroundDuringPresentation = false
+        self.navigationItem.searchController = search
     }
     
     func setupKeyboardNotifications() {
@@ -96,12 +108,25 @@ class DictionaryViewController: UIViewController {
         
         if let editedWord = self.editedWord {
             dictionary.editWord(id: editedWord.itemIdentifier, text: text, translation: translation, completionHandler: clearAddWordView)
+            
+            // updated search results
+            if searchResults != nil {
+                if let searchWordIndex = searchResults?.index(where: { (word) -> Bool in
+                    word.itemIdentifier == editedWord.itemIdentifier
+                }) {
+                    searchResults![searchWordIndex].text = text
+                    searchResults![searchWordIndex].translation = translation
+                }
+            }
+            
         } else {
             addWord(text: addWordTextfield.text, translation: addTranslationTextfield.text, completionHandler: clearAddWordView)
         }
     }
     
     @IBAction func cancelAddWordTapped(_ sender: Any) {
+        addWordTextfield.text = nil
+        addTranslationTextfield.text = nil
         view.endEditing(true)
     }
     
@@ -113,7 +138,16 @@ class DictionaryViewController: UIViewController {
             }
             
             self.tableview.reloadData()
-            let indexPath = IndexPath(row: (dictionary.words?.count ?? 0) - 1, section: 0)
+            
+            // get count of words
+            var count: Int = 0
+            if let searchResults = self.searchResults {
+                count = searchResults.count
+            } else {
+                count = dictionary.words?.count ?? 0
+            }
+            
+            let indexPath = IndexPath(row: (count) - 1, section: 0)
             self.tableview.scrollToRow(at: indexPath, at: .top, animated: true)
             self.moveAddWordView(direction: .down)
             
@@ -155,16 +189,29 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
     //MARK: - tabelview datasource / delegate
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dictionary.words?.count ?? 0
+        
+        if let searchResults = searchResults {
+            return searchResults.count
+        } else {
+            return dictionary.words?.count ?? 0
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! WordTableViewCell
         
-        if let words = dictionary.words {
-            let word = words[indexPath.item]
-            setTextAndColor(word: word, cell: cell)
+        var word: Word?
+        
+        if let searchResults = searchResults {
+            word = searchResults[indexPath.item]
+        } else if let words = dictionary.words {
+            word = words[indexPath.item]
+        }
+        
+        if word !=  nil {
+            setTextAndColor(word: word!, cell: cell)
         }
         
         cell.selectionStyle = .none
@@ -180,7 +227,14 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
                 return
         }
         
-        var word = words[indexPath.item]
+        var word: Word!
+        
+        if let searchResults = searchResults {
+            word = searchResults[indexPath.item]
+        } else {
+            word = words[indexPath.item]
+        }
+
         word.translationShown = !word.translationShown
         dictionary.showTranslation( word.translationShown, index: indexPath.row)
         
@@ -211,16 +265,36 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func deleteWord(indexPath: IndexPath) {
-        dictionary.deleteWord(byIndex: indexPath.row)
+        
+        var index: Int = indexPath.row
+        
+        if let searchResults = searchResults {
+            let searchedWord = searchResults[indexPath.row]
+            if let foundIndex = dictionary.getIndexOfWord(byID: searchedWord.itemIdentifier) {
+                index = foundIndex
+            }
+        }
+        
+        dictionary.deleteWord(byIndex: index)
     }
     
     func showEditWord(indexPath: IndexPath) {
-        guard let word = dictionary.words?[indexPath.row] else {
+        
+        var wordAtIndexPath: Word?
+        
+        if let searchResults = searchResults {
+            wordAtIndexPath = searchResults[indexPath.row]
+        } else {
+            wordAtIndexPath = dictionary.words?[indexPath.row]
+        }
+        
+        guard let word = wordAtIndexPath else {
             return
         }
         
         editedWord = word
         
+        showAddWordView = true
         addWordTextfield.becomeFirstResponder()
         addWordTextfield.text = word.text
         addTranslationTextfield.text = word.translation
@@ -233,13 +307,22 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+//MARK: - AddWordView methods and textfield delegate and custom methods
 extension DictionaryViewController: UITextFieldDelegate {
-    
-    //MARK: - AddWordView methods and textfield delegate and custom methods
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         print("did begin editing")
-        //moveAddWordView(direction: .up)
+        if textField == addWordTextfield {
+            showAddWordView = true
+            
+            if editedWord == nil && searchResults != nil {
+                search.dismiss(animated: true, completion: nil)
+                search.searchBar.text = nil
+                searchResults = nil
+                tableview.reloadData()
+            }
+            
+        }
     }
     
     func moveAddWordView(direction: AddWordViewDirection) {
@@ -274,6 +357,11 @@ extension DictionaryViewController: UITextFieldDelegate {
     
     @objc func keyboardWillShow(_ notification: Notification) {
         print("keyboard will show")
+        
+        if showAddWordView == false {
+            return
+        }
+        
         if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             keyboardHeight = keyboardRectangle.height
@@ -282,6 +370,11 @@ extension DictionaryViewController: UITextFieldDelegate {
     }
     
     @objc func keyboardWillHide(_ notification: Notification) {
+        
+        if showAddWordView {
+            showAddWordView = false
+        }
+        
         moveAddWordView(direction: .down)
         
         if self.editedWord != nil {
@@ -289,3 +382,24 @@ extension DictionaryViewController: UITextFieldDelegate {
         }
     }
 }
+
+//MARK: - Search bar delegate methods
+extension DictionaryViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        print("searching")
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text else { return }
+        searchResults = dictionary.search(byText: text)
+        self.tableview.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchResults = nil
+        tableview.reloadData()
+    }
+    
+}
+

@@ -24,7 +24,7 @@ class DictionaryOfWords: NSObject {
         return self.words
     }
     
-    func search(word: Word) -> Word? {        
+    func search(byWord word: Word) -> Word? {
         if let foundWord = self.words?.first(where: { (x) -> Bool in
             x.text == word.text
         }) {
@@ -34,10 +34,42 @@ class DictionaryOfWords: NSObject {
         return nil
     }
     
+    func search(byText text: String) -> [Word] {
+        var words: [Word] = []
+        let searchText = text.lowercased()
+        
+        if let foundWords = self.words?.filter({ (word) -> Bool in
+            guard let text = word.text, let translation = word.translation else {
+                return false
+            }
+            
+            if text.contains(searchText) || translation.contains(searchText) {
+                return true
+            } else {
+                return false
+            }
+        }) {
+            words = foundWords
+        }
+        
+        return words
+        
+    }
+    
+    func getIndexOfWord(byID: UUID) -> Int? {
+        if let foundIndex = self.words?.index(where: { (word) -> Bool in
+            word.itemIdentifier == byID
+        }) {
+            return foundIndex
+        } else {
+            return nil
+        }
+    }
+    
     func addWord(word: Word) -> Bool {
         
         // check if word already exists, if not then add
-        if let _ = self.search(word: word) {
+        if let _ = self.search(byWord: word) {
             print("word already exists")
             return false
         } else {

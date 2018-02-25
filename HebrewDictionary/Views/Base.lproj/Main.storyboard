@@ -80,7 +80,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Hebrew Dictionary" id="sw5-vq-lgh">
-                        <barButtonItem key="rightBarButtonItem" title="Shuffle" id="5Hp-rt-txo">
+                        <barButtonItem key="rightBarButtonItem" image="shuffle" id="5Hp-rt-txo">
                             <color key="tintColor" name="darkGreen"/>
                             <connections>
                                 <action selector="shuffle:" destination="BYZ-38-t0r" id="8Xk-Ja-Dzm"/>
@@ -180,6 +180,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="shuffle" width="35" height="35"/>
         <namedColor name="darkGreen">
             <color red="0.0" green="0.6589999794960022" blue="0.58799999952316284" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
