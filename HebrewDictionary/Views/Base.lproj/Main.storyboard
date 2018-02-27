@@ -109,7 +109,7 @@
                             <barButtonItem title="Item" image="questions" id="LvR-JM-3D0">
                                 <color key="tintColor" name="darkGreen"/>
                                 <connections>
-                                    <action selector="takeQuiz:" destination="BYZ-38-t0r" id="RnO-xl-qvY"/>
+                                    <action selector="takeQuizTapped:" destination="BYZ-38-t0r" id="4jU-vE-ybs"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>

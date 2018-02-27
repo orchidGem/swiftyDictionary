@@ -15,6 +15,7 @@ class WordNotificationsManager {
     init() {}
     
     static let notificationCategory: String = "wordCategory"
+    static var didOpenFromNotification: Bool = false
     
     static func scheduleNotifications() {
         

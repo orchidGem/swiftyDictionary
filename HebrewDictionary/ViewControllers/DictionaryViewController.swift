@@ -39,6 +39,16 @@ class DictionaryViewController: UIViewController {
         addWordViewToView()
         setupKeyboardNotifications()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if WordNotificationsManager.didOpenFromNotification {
+            showQuizView()
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showQuizView), name: NSNotification.Name(rawValue: "didReceiveNotification"), object: nil)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -146,10 +156,8 @@ class DictionaryViewController: UIViewController {
         tableview.reloadData()
     }
     
-    @IBAction func takeQuiz(_ sender: Any) {
-        let quizViewController = QuizViewController(nibName: "QuizViewController", bundle: nil)
-        quizViewController.modalPresentationStyle = .overFullScreen
-        present(quizViewController, animated: true, completion: nil)
+    @IBAction func takeQuizTapped(_ sender: Any) {
+        self.showQuizView()
     }
     
     @IBAction func scrollUp(_ sender: Any) {
@@ -158,6 +166,15 @@ class DictionaryViewController: UIViewController {
     }
     
     //MARK: - custom methods
+    @objc func showQuizView() {
+        
+        WordNotificationsManager.didOpenFromNotification = false
+        
+        let quizViewController = QuizViewController(nibName: "QuizViewController", bundle: nil)
+        quizViewController.modalPresentationStyle = .overFullScreen
+        present(quizViewController, animated: true, completion: nil)
+    }
+    
     func clearAddWordView(_ success: Bool) {
         if success {
             
