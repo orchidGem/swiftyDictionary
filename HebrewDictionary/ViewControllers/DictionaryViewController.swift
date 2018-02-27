@@ -183,6 +183,7 @@ class DictionaryViewController: UIViewController {
     
     @IBAction func takeQuiz(_ sender: Any) {
         let quizViewController = QuizViewController(nibName: "QuizViewController", bundle: nil)
+        quizViewController.modalPresentationStyle = .overFullScreen
         present(quizViewController, animated: true, completion: nil)
     }
 }
