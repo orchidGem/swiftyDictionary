@@ -21,6 +21,7 @@ class DictionaryViewController: UIViewController {
     
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var tableviewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var scrollUpButton : UIButton!
     
     // MARK: - Add word view properties
     @IBOutlet var addWordView: UIView!
@@ -29,12 +30,9 @@ class DictionaryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
-        
-        addWordTextfield.delegate = self
-        addWordTextfield.language = "he"
-        
+        setupTextFields()
+        setupBalloonButton()
         setUpTableview()
         setupSearchBar()
         fetchWords()
@@ -48,6 +46,18 @@ class DictionaryViewController: UIViewController {
     }
     
     //MARK: - Set up methods
+    func setupTextFields() {
+        addWordTextfield.delegate = self
+        addWordTextfield.language = "he"
+    }
+    
+    func setupBalloonButton() {
+        scrollUpButton.isHidden = true
+        scrollUpButton.alpha = 0
+        scrollUpButton.layer.cornerRadius = scrollUpButton.frame.height / 2
+        scrollUpButton.clipsToBounds = true
+
+    }
     
     func setUpTableview() {
         tableview.dataSource = self
@@ -57,9 +67,9 @@ class DictionaryViewController: UIViewController {
     }
     
     func setupSearchBar() {
-        
         search.searchResultsUpdater = self
         search.searchBar.delegate = self
+        navigationItem.hidesSearchBarWhenScrolling = false
         search.dimsBackgroundDuringPresentation = false
         self.navigationItem.searchController = search
     }
@@ -127,7 +137,27 @@ class DictionaryViewController: UIViewController {
         addTranslationTextfield.text = nil
         view.endEditing(true)
     }
+
+    @IBAction func shuffle(_ sender: Any) {
+        if dictionary.words == nil {
+            return
+        }
+        dictionary.shuffleWords()
+        tableview.reloadData()
+    }
     
+    @IBAction func takeQuiz(_ sender: Any) {
+        let quizViewController = QuizViewController(nibName: "QuizViewController", bundle: nil)
+        quizViewController.modalPresentationStyle = .overFullScreen
+        present(quizViewController, animated: true, completion: nil)
+    }
+    
+    @IBAction func scrollUp(_ sender: Any) {
+        let indexPath: IndexPath = IndexPath(row: 0, section: 0)
+        tableview.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
+    
+    //MARK: - custom methods
     func clearAddWordView(_ success: Bool) {
         if success {
             
@@ -173,18 +203,26 @@ class DictionaryViewController: UIViewController {
         
     }
     
-    @IBAction func shuffle(_ sender: Any) {
-        if dictionary.words == nil {
-            return
+    func toggleVisibilityOfScrollUpButton(indexPath: IndexPath) {
+        // set max index Path with 40 as avg height of cell
+        let maxIndex = Int(ceil(view.frame.height / 40) * 1.5 )
+        
+        if indexPath.row >= maxIndex {
+            if scrollUpButton.isHidden {
+                scrollUpButton.isHidden = false
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.scrollUpButton.alpha = 1
+                })
+            }
+        } else {
+            if scrollUpButton.isHidden == false {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.scrollUpButton.alpha = 0
+                }, completion: { (_) in
+                    self.scrollUpButton.isHidden = true
+                })
+            }
         }
-        dictionary.shuffleWords()
-        tableview.reloadData()
-    }
-    
-    @IBAction func takeQuiz(_ sender: Any) {
-        let quizViewController = QuizViewController(nibName: "QuizViewController", bundle: nil)
-        quizViewController.modalPresentationStyle = .overFullScreen
-        present(quizViewController, animated: true, completion: nil)
     }
 }
 
@@ -203,6 +241,8 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        toggleVisibilityOfScrollUpButton(indexPath: indexPath)
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! WordTableViewCell
         

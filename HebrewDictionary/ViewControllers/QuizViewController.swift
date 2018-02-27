@@ -12,8 +12,8 @@ class QuizViewController: UIViewController {
     
     var word: Word? {
         didSet {
-            textLabel.text = word?.text
-            translationLabel.text = word?.translation
+            textLabel.text = word?.translation
+            translationLabel.text = word?.text
         }
     }
     var initialTouchPoint: CGPoint = CGPoint(x: 0,y: 0)
@@ -21,6 +21,7 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var textLabel : UILabel!
     @IBOutlet weak var translationLabel : UILabel!
     
+    //MARK: - lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,7 +35,6 @@ class QuizViewController: UIViewController {
         
         setupPanGesture()
     }
-    
     
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -53,7 +53,8 @@ class QuizViewController: UIViewController {
         }
     }
  */
-    
+   
+    //MARK: - outlet action methods
     @IBAction func showTranslation(_ sender: Any) {
         viewTranslation()
     }
@@ -70,6 +71,7 @@ class QuizViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    //MARK - custom methods
     func showAnotherWord() {
         translationLabel.isHidden = true
         word = WordNotificationsManager.getRandomWord()
@@ -80,6 +82,7 @@ class QuizViewController: UIViewController {
     }
 }
 
+//MARK: - pan gesture extension
 extension QuizViewController {
     
     func setupPanGesture() {

@@ -70,9 +70,27 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="grj-xs-QCd">
+                                <rect key="frame" x="319" y="542" width="40" height="40"/>
+                                <color key="backgroundColor" name="darkGreen"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="ggh-Un-910"/>
+                                    <constraint firstAttribute="width" constant="40" id="r0a-z5-bnw"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                <state key="normal" image="hot_air_balloon">
+                                    <color key="titleColor" name="darkGreen"/>
+                                </state>
+                                <connections>
+                                    <action selector="scrollUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nd0-8A-YtG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="grj-xs-QCd" secondAttribute="trailing" constant="16" id="5Ox-as-SBE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="grj-xs-QCd" secondAttribute="bottom" constant="85" id="70l-oF-X9z"/>
                             <constraint firstItem="c1P-E9-bhS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="BzT-U2-pro"/>
                             <constraint firstItem="c1P-E9-bhS" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-64" id="IXp-eb-MpW"/>
                             <constraint firstItem="c1P-E9-bhS" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="iuB-2J-RGY"/>
@@ -100,6 +118,7 @@
                         <outlet property="addTranslationTextfield" destination="5es-7h-7IW" id="UJr-t5-RmD"/>
                         <outlet property="addWordTextfield" destination="YWp-gu-pgy" id="YX7-jD-0DW"/>
                         <outlet property="addWordView" destination="qlf-6D-z3Y" id="wwL-qg-zrY"/>
+                        <outlet property="scrollUpButton" destination="grj-xs-QCd" id="wyR-Kt-zX4"/>
                         <outlet property="tableview" destination="c1P-E9-bhS" id="oTl-xg-nuq"/>
                         <outlet property="tableviewBottomConstraint" destination="IXp-eb-MpW" id="l2p-Hd-3Ol"/>
                     </connections>
@@ -197,6 +216,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="hot_air_balloon" width="50" height="50"/>
         <image name="questions" width="25" height="25"/>
         <image name="shuffle" width="25" height="25"/>
         <namedColor name="darkGreen">
