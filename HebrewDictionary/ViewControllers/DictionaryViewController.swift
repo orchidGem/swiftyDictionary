@@ -180,6 +180,11 @@ class DictionaryViewController: UIViewController {
         dictionary.shuffleWords()
         tableview.reloadData()
     }
+    
+    @IBAction func takeQuiz(_ sender: Any) {
+        let quizViewController = QuizViewController(nibName: "QuizViewController", bundle: nil)
+        present(quizViewController, animated: true, completion: nil)
+    }
 }
 
 extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
