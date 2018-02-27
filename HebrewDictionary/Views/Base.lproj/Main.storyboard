@@ -37,12 +37,12 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wc5-jN-Caq">
-                                                    <rect key="frame" x="16" y="16" width="343" height="67.5"/>
+                                                    <rect key="frame" x="16" y="12" width="343" height="75.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Word" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1dY-9E-igO">
-                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="67.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="75.5"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -57,9 +57,9 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="Wc5-jN-Caq" secondAttribute="bottom" constant="16" id="2Vg-ts-wsu"/>
+                                                <constraint firstAttribute="bottom" secondItem="Wc5-jN-Caq" secondAttribute="bottom" constant="12" id="2Vg-ts-wsu"/>
                                                 <constraint firstItem="Wc5-jN-Caq" firstAttribute="leading" secondItem="hy8-EH-dr8" secondAttribute="leading" constant="16" id="3s6-Q0-M9m"/>
-                                                <constraint firstItem="Wc5-jN-Caq" firstAttribute="top" secondItem="hy8-EH-dr8" secondAttribute="top" constant="16" id="Mco-kY-mac"/>
+                                                <constraint firstItem="Wc5-jN-Caq" firstAttribute="top" secondItem="hy8-EH-dr8" secondAttribute="top" constant="12" id="Mco-kY-mac"/>
                                                 <constraint firstAttribute="trailing" secondItem="Wc5-jN-Caq" secondAttribute="trailing" constant="16" id="ZUW-lE-ggJ"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -97,20 +97,20 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="qlf-6D-z3Y">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="165"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="kOx-lx-jAX">
-                            <rect key="frame" x="16" y="16" width="343" height="128"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="kOx-lx-jAX">
+                            <rect key="frame" x="16" y="16" width="343" height="134"/>
                             <subviews>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add Word" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YWp-gu-pgy" customClass="CustomTextField" customModule="HebrewDictionary" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="343" height="32"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Translation" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5es-7h-7IW">
-                                    <rect key="frame" x="0.0" y="48" width="343" height="32"/>
+                                    <rect key="frame" x="0.0" y="46" width="343" height="32"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="32" id="2Jy-rv-VCK"/>
                                     </constraints>
@@ -119,11 +119,15 @@
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="KF2-Av-vTD">
-                                    <rect key="frame" x="0.0" y="96" width="343" height="32"/>
+                                    <rect key="frame" x="0.0" y="94" width="343" height="40"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n0T-SG-29V">
-                                            <rect key="frame" x="0.0" y="1" width="166.5" height="30"/>
-                                            <color key="backgroundColor" name="darkGreen"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="166.5" height="40"/>
+                                            <color key="backgroundColor" name="myGray"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="JjX-9D-DTx"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                             <state key="normal" title="Cancel">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
@@ -132,8 +136,12 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DU8-Ui-c9v">
-                                            <rect key="frame" x="176.5" y="1" width="166.5" height="30"/>
+                                            <rect key="frame" x="176.5" y="0.0" width="166.5" height="40"/>
                                             <color key="backgroundColor" name="darkGreen"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="cbb-2j-zW8"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                             <state key="normal" title="Save">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
@@ -180,9 +188,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="shuffle" width="35" height="35"/>
+        <image name="shuffle" width="25" height="25"/>
         <namedColor name="darkGreen">
             <color red="0.0" green="0.6589999794960022" blue="0.58799999952316284" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="myGray">
+            <color red="0.50599998235702515" green="0.55299997329711914" blue="0.55699998140335083" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

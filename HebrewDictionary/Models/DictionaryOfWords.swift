@@ -15,9 +15,12 @@ class DictionaryOfWords: NSObject {
         super.init()
     }
     
-    func setWords(words: [Word]) {
+    func setWords() {
+        let words = DataManager.loadAll(Word.self, identifier: Word.identifier).sorted { (word1, word2) -> Bool in
+            word1.createdDate < word2.createdDate
+        }
         self.words = words
-        self.shuffleWords()
+        //self.shuffleWords()
     }
     
     func getAllWords() -> [Word]? {

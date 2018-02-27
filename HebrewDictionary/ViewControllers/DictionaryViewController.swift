@@ -78,9 +78,7 @@ class DictionaryViewController: UIViewController {
     
     
     func fetchWords() {
-        let words = DataManager.loadAll(Word.self, identifier: Word.identifier)
-        
-        self.dictionary.setWords(words: words)
+        self.dictionary.setWords()
         self.tableview.reloadData()
     }
 
@@ -336,7 +334,7 @@ extension DictionaryViewController: UITextFieldDelegate {
         let show = direction == .down ? false : true
         
         animateFadedBackground(show: show)
-        
+                
         UIView.animate(withDuration: 0.3, animations: {
             self.addWordView.frame.origin = CGPoint(x: 0, y: yPoint)
         })

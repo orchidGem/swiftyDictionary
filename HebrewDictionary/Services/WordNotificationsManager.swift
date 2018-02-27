@@ -60,12 +60,10 @@ class WordNotificationsManager {
             
             // don't schedule if past ten
             let hour = Calendar.current.component(.hour, from: Date())
-            if hour > 22 {
-                return
+            if hour < 20 {
+                trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60*60*2, repeats: false)
+                identifier = WordNotificationType.Hourly.rawValue
             }
-            
-            trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-            identifier = WordNotificationType.Hourly.rawValue
         } else {
             trigger = UNCalendarNotificationTrigger(dateMatching: DateComponents(hour: 9), repeats: true)
             
