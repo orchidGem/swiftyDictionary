@@ -21,39 +21,25 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var textLabel : UILabel!
     @IBOutlet weak var translationLabel : UILabel!
     
+    // Buttons
+    @IBOutlet weak var closeButton : UIButton!
+    @IBOutlet weak var viewTranslationButton : UIButton!
+    @IBOutlet weak var needsPracticeButton : UIButton!
+    @IBOutlet weak var showAnotherButton : UIButton!
+    
+    // Constraints
+    @IBOutlet weak var verticalConstraint: NSLayoutConstraint!
+    
     //MARK: - lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        /*
-        let size = view.bounds.size
-        preferredContentSize = CGSize(width: size.width, height: size.height / 2)
-        */
-        
+ 
         translationLabel.isHidden = true
         word = WordNotificationsManager.getRandomWord()
         
         setupPanGesture()
     }
-    
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        WordNotificationsManager.schedule(type: .Hourly)
-    }
-    
-    /*
-    func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
-        
-        if response.actionIdentifier == "viewTranslation" {
-            self.viewTranslation()
-        } else if response.actionIdentifier == "needsPractice" {
-            self.textLabel.text = "needs practice!"
-        } else {
-            showAnotherWord()
-        }
-    }
- */
-   
+
     //MARK: - outlet action methods
     @IBAction func showTranslation(_ sender: Any) {
         viewTranslation()
@@ -91,8 +77,6 @@ extension QuizViewController {
     }
     
     @objc func swipeDown(gestureRecognizer: UIPanGestureRecognizer) {
-        
-        print("swiping down")
         
         let touchPoint = gestureRecognizer.location(in: self.view?.window)
         print("touchpoint", touchPoint)

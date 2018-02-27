@@ -19,6 +19,7 @@ class WordNotificationsManager {
     static func scheduleNotifications() {
         
         let center = UNUserNotificationCenter.current()
+        center.removeAllPendingNotificationRequests()
         center.getPendingNotificationRequests { (notificationRequests) in
             
             var scheduleMorning: Bool = true
@@ -61,7 +62,8 @@ class WordNotificationsManager {
             // don't schedule if past ten
             let hour = Calendar.current.component(.hour, from: Date())
             if hour < 20 {
-                trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60*60*2, repeats: false)
+                //trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60*60*2, repeats: false)
+                trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
                 identifier = WordNotificationType.Hourly.rawValue
             }
         } else {

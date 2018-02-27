@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,9 +19,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QuizViewController" customModule="HebrewDictionary" customModuleProvider="target">
             <connections>
+                <outlet property="closeButton" destination="5bw-gg-HBC" id="ce4-fZ-cQx"/>
+                <outlet property="needsPracticeButton" destination="n90-Kg-Lf9" id="ru7-hy-C7F"/>
+                <outlet property="showAnotherButton" destination="jCa-KB-zOl" id="Q2O-GO-INX"/>
                 <outlet property="textLabel" destination="8ec-km-sUW" id="mGN-Li-7To"/>
                 <outlet property="translationLabel" destination="WvC-GG-K9O" id="8KY-0i-Nhy"/>
+                <outlet property="verticalConstraint" destination="Lvy-uW-J2t" id="mdZ-Vg-j6T"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewTranslationButton" destination="R6G-sb-KFN" id="UbW-QD-1RU"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -31,17 +35,17 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" tag="20" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="qMh-3d-FoF">
-                    <rect key="frame" x="91" y="185" width="193.5" height="131.5"/>
+                    <rect key="frame" x="103" y="222" width="169.5" height="113.5"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="8ec-km-sUW">
-                            <rect key="frame" x="46.5" y="0.0" width="101" height="64.5"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="55"/>
+                            <rect key="frame" x="43.5" y="0.0" width="82.5" height="52.5"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="45"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Translation" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="WvC-GG-K9O">
-                            <rect key="frame" x="0.0" y="84.5" width="193.5" height="47"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="40"/>
+                            <rect key="frame" x="0.0" y="72.5" width="169.5" height="41"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="35"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -111,7 +115,7 @@
                 <constraint firstItem="etO-mm-97R" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="8TN-9H-Ttu"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="etO-mm-97R" secondAttribute="bottom" constant="16" id="Fpp-sy-Ek4"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="5bw-gg-HBC" secondAttribute="trailing" constant="16" id="Klk-O6-w2d"/>
-                <constraint firstItem="qMh-3d-FoF" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.75" id="Lvy-uW-J2t"/>
+                <constraint firstItem="qMh-3d-FoF" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-55" id="Lvy-uW-J2t"/>
                 <constraint firstItem="qMh-3d-FoF" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Ycl-FL-FFE"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="etO-mm-97R" secondAttribute="trailing" constant="16" id="dI3-wC-G0D"/>
                 <constraint firstItem="5bw-gg-HBC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14" id="n0m-0T-XsX"/>
