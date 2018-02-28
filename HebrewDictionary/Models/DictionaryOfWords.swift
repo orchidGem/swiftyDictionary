@@ -17,7 +17,7 @@ class DictionaryOfWords: NSObject {
     
     func setWords() {
         let words = DataManager.loadAll(Word.self, identifier: Word.identifier).sorted { (word1, word2) -> Bool in
-            word1.createdDate < word2.createdDate
+            word1.createdDate > word2.createdDate
         }
         self.words = words
         //self.shuffleWords()

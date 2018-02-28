@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -99,20 +98,18 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Hebrew Dictionary" id="sw5-vq-lgh">
-                        <rightBarButtonItems>
-                            <barButtonItem image="shuffle" id="5Hp-rt-txo">
-                                <color key="tintColor" name="darkGreen"/>
-                                <connections>
-                                    <action selector="shuffle:" destination="BYZ-38-t0r" id="8Xk-Ja-Dzm"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Item" image="questions" id="LvR-JM-3D0">
-                                <color key="tintColor" name="darkGreen"/>
-                                <connections>
-                                    <action selector="takeQuizTapped:" destination="BYZ-38-t0r" id="4jU-vE-ybs"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="leftBarButtonItem" image="shuffle" id="5Hp-rt-txo">
+                            <color key="tintColor" name="darkGreen"/>
+                            <connections>
+                                <action selector="shuffle:" destination="BYZ-38-t0r" id="8Xk-Ja-Dzm"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="questions" id="LvR-JM-3D0">
+                            <color key="tintColor" name="darkGreen"/>
+                            <connections>
+                                <action selector="takeQuizTapped:" destination="BYZ-38-t0r" id="4jU-vE-ybs"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addTranslationTextfield" destination="5es-7h-7IW" id="UJr-t5-RmD"/>
