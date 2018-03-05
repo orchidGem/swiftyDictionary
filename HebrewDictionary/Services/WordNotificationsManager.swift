@@ -124,7 +124,7 @@ class WordNotificationsManager {
         })
         
         if words.count < 0 {
-            return Word(text: "text", translation: "translation", translationShown: false, shownInNotification: false, createdDate: Date(), itemIdentifier: UUID())
+            return Word(text: "text", translation: "translation")
         }
         
         let randomNumber = Int(arc4random_uniform(UInt32(words.count)))

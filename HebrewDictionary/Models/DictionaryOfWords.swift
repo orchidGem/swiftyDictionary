@@ -16,8 +16,12 @@ class DictionaryOfWords: NSObject {
     }
     
     func setWords() {
-        let words = DataManager.loadAll(Word.self, identifier: Word.identifier).sorted { (word1, word2) -> Bool in
-            word1.createdDate > word2.createdDate
+//        let words = DataManager.loadAll(Word.self, identifier: Word.identifier).sorted { (word1, word2) -> Bool in
+//            word1.createdDate > word2.createdDate
+//        }
+        
+        let words = DataManager.loadAll(Word.self, identifier: Word.identifier).filter { (word) -> Bool in
+            word.archived == false
         }
         self.words = words
         //self.shuffleWords()
@@ -103,6 +107,11 @@ class DictionaryOfWords: NSObject {
     func deleteWord(byIndex: Int) {
         self.words?[byIndex].deleteItem()
         self.words?.remove(at: byIndex)
+    }
+    
+    func archiveWord(byIndex index: Int) {
+        self.words?[index].archive()
+        self.words?.remove(at: index)
     }
     
     func showTranslation(_ show: Bool, index: Int) {

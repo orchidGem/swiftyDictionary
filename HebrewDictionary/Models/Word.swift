@@ -12,11 +12,19 @@ struct Word: Codable {
     var text: String?
     var translation: String?
     var translationShown: Bool = false
-    var shownInNotification: Bool
+    var shownInNotification: Bool = false
     var createdDate: Date
     var itemIdentifier: UUID
+    var archived: Bool = false
     
     static let identifier: String = "group.WordNotifications"
+    
+    init(text: String?, translation: String?) {
+        self.text = text
+        self.translation = translation
+        self.createdDate = Date()
+        self.itemIdentifier = UUID()
+    }
     
     func saveItem() {
         DataManager.save(self, with: itemIdentifier.uuidString, identifier: Word.identifier)
@@ -32,6 +40,16 @@ struct Word: Codable {
     
     mutating func markAsNotShownInNotification() {
         self.shownInNotification = false
+    }
+    
+    mutating func archive() {
+        self.archived = true
+        self.saveItem()
+    }
+    
+    mutating func unarchive() {
+        self.archived = false
+        self.saveItem()
     }
     
 }

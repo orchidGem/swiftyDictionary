@@ -207,7 +207,7 @@ class DictionaryViewController: UIViewController {
     
     func addWord(text: String?, translation: String?, completionHandler: (Bool) -> Void) {
         
-        let word = Word(text: text, translation: translation, translationShown: false, shownInNotification: false, createdDate: Date(), itemIdentifier: UUID())
+        let word = Word(text: text, translation: translation)
         
         let wordAdded = self.dictionary.addWord(word: word)
         
@@ -306,6 +306,7 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             self.deleteWord(indexPath: indexPath)
             completionHandler(true)
@@ -316,12 +317,17 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
             completionHandler(true)
         }
         
+        let archiveAction = UIContextualAction(style: .destructive, title: "Archive") { (action, view, completionHandler) in
+            self.archiveWord(indexPath: indexPath)
+            completionHandler(true)
+        }
+        
         deleteAction.backgroundColor = UIColor(named: "red")
         deleteAction.image = UIImage(named: "delete")
         editAction.backgroundColor = UIColor(named: "lightGreen")
         editAction.image = UIImage(named: "edit")
         
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction, archiveAction])
         return configuration
     }
     
@@ -337,6 +343,19 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         dictionary.deleteWord(byIndex: index)
+    }
+    
+    func archiveWord(indexPath: IndexPath) {
+        var index: Int = indexPath.row
+        
+        if let searchResults = searchResults {
+            let searchedWord = searchResults[indexPath.row]
+            if let foundIndex = dictionary.getIndexOfWord(byID: searchedWord.itemIdentifier) {
+                index = foundIndex
+            }
+        }
+        
+        dictionary.archiveWord(byIndex: index)
     }
     
     func showEditWord(indexPath: IndexPath) {
