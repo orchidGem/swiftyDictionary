@@ -23,7 +23,7 @@ class NotificationViewController: QuizViewController, UNNotificationContentExten
         // hide buttons
         self.closeButton.isHidden = true
         self.viewTranslationButton.isHidden = true
-        self.needsPracticeButton.isHidden = true
+        self.weightButton.isHidden = true
         self.showAnotherButton.isHidden = true
         
         textLabel.font = textLabel.font.withSize(35)

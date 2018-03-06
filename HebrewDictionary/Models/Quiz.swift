@@ -12,10 +12,10 @@ struct Quiz {
     var dict: DictionaryOfWords!
     var lowWeightedWords: [Word] = []
     var highWeightedWords: [Word] = []
-    var word: Word?
 
-    init(dict: DictionaryOfWords!) {
-        self.dict = dict
+    init() {
+        self.dict = DictionaryOfWords()
+        self.dict.setWords()
         self.sortWordsByWeight()
     }
 
@@ -25,7 +25,7 @@ struct Quiz {
         guard let words = self.dict.words else { return }
         // loop through dictionary to sort words by weight
         for word in words {
-            if word.weightType == .High {
+            if word.weightType == .High || word.weightType == nil {
                 self.highWeightedWords.append(word)
             } else {
                 self.lowWeightedWords.append(word)
@@ -51,7 +51,6 @@ struct Quiz {
             word = lowWeightedWords.remove(at: randomNumber)
         }
 
-        print("selected word:", word.text)
         return word
     }
 

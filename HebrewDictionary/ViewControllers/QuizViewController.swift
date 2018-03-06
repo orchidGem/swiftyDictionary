@@ -10,10 +10,16 @@ import UIKit
 
 class QuizViewController: UIViewController {
     
+    var quiz: Quiz?
     var word: Word? {
         didSet {
-            textLabel.text = word?.translation
-            translationLabel.text = word?.text
+            if word == nil {
+                textLabel.text = "No more words. Quiz is over."
+            } else {
+                textLabel.text = word?.translation
+                translationLabel.text = word?.text
+                self.changeTextForWeightButton()
+            }
         }
     }
     var initialTouchPoint: CGPoint = CGPoint(x: 0,y: 0)
@@ -24,7 +30,7 @@ class QuizViewController: UIViewController {
     // Buttons
     @IBOutlet weak var closeButton : UIButton!
     @IBOutlet weak var viewTranslationButton : UIButton!
-    @IBOutlet weak var needsPracticeButton : UIButton!
+    @IBOutlet weak var weightButton : UIButton!
     @IBOutlet weak var showAnotherButton : UIButton!
     
     // Constraints
@@ -34,10 +40,10 @@ class QuizViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
  
-        translationLabel.isHidden = true
-        word = WordNotificationsManager.getRandomWord()
-        
+        setupQuiz()
         setupPanGesture()
+        
+        translationLabel.isHidden = true
     }
 
     //MARK: - outlet action methods
@@ -45,8 +51,13 @@ class QuizViewController: UIViewController {
         viewTranslation()
     }
     
-    @IBAction func needsPractice(_ sender: Any) {
-        print("needs practice")
+    @IBAction func changeWeightOfWord(_ sender: Any) {
+        var word = self.word
+        if word?.weightType == .Low {
+            word?.changeWeightToHigh()
+        } else {
+            word?.changeWeightToLow()
+        }
     }
     
     @IBAction func showAnotherWord(_ sender: Any) {
@@ -58,13 +69,33 @@ class QuizViewController: UIViewController {
     }
     
     //MARK - custom methods
+    func setupQuiz() {
+        quiz = Quiz()
+        word = quiz?.pickRandomWord()
+    }
+    
+    
     func showAnotherWord() {
         translationLabel.isHidden = true
-        word = WordNotificationsManager.getRandomWord()
+        word = quiz?.pickRandomWord()
+        print("number of available words left in quiz:", quiz?.dict.words?.count ?? "0")
     }
     
     func viewTranslation() {
         translationLabel.isHidden = false
+    }
+    
+    func changeTextForWeightButton() {
+        
+        var buttonText: String = ""
+        
+        if self.word?.weightType == .Low {
+            buttonText = "Needs Practice :("
+        } else {
+            buttonText = "Knew It!"
+        }
+        
+        self.weightButton.setTitle(buttonText, for: .normal)
     }
 }
 

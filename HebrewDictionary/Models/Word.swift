@@ -15,8 +15,8 @@ struct Word: Codable {
     var shownInNotification: Bool = false
     var createdDate: Date
     var itemIdentifier: UUID
-    var archived: Bool = false
-    var weightType: WeightType = WeightType.Low
+    var archived: Bool?
+    var weightType: WeightType?
     
     static let identifier: String = "group.WordNotifications"
     
@@ -25,10 +25,12 @@ struct Word: Codable {
         self.translation = translation
         self.createdDate = Date()
         self.itemIdentifier = UUID()
+        self.archived = false
+        self.weightType = WeightType.High
     }
     
     func saveItem() {
-        DataManager.save(self, with: itemIdentifier.uuidString, identifier: Word.identifier)
+        _ = DataManager.save(self, with: itemIdentifier.uuidString, identifier: Word.identifier)
     }
     
     func deleteItem() {
@@ -50,6 +52,16 @@ struct Word: Codable {
     
     mutating func unarchive() {
         self.archived = false
+        self.saveItem()
+    }
+    
+    mutating func changeWeightToHigh() {
+        self.weightType = .High
+        self.saveItem()
+    }
+    
+    mutating func changeWeightToLow() {
+        self.weightType = .Low
         self.saveItem()
     }
     

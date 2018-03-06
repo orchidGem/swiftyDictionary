@@ -16,15 +16,15 @@ class DictionaryOfWords: NSObject {
     }
     
     func setWords() {
-//        let words = DataManager.loadAll(Word.self, identifier: Word.identifier).sorted { (word1, word2) -> Bool in
-//            word1.createdDate > word2.createdDate
-//        }
         
         let words = DataManager.loadAll(Word.self, identifier: Word.identifier).filter { (word) -> Bool in
-            word.archived == false
+            word.archived == false || word.archived == nil
         }
-        self.words = words
-        //self.shuffleWords()
+        
+        self.words = words.sorted { (word1, word2) -> Bool in
+            word1.createdDate > word2.createdDate
+        }
+        
     }
     
     func getAllWords() -> [Word]? {
