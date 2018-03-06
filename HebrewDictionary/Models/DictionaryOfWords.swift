@@ -114,6 +114,10 @@ class DictionaryOfWords: NSObject {
         self.words?.remove(at: index)
     }
     
+    func toggleWordWeight(byIndex index: Int) {
+        self.words?[index].toggleWeight()
+    }
+    
     func showTranslation(_ show: Bool, index: Int) {
         self.words![index].translationShown = show
     }

@@ -322,12 +322,19 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
             completionHandler(true)
         }
         
+        let weightAction = UIContextualAction(style: .normal, title: self.setTextOfWeightButton(indexPath: indexPath)) { (action, view, completionHandler) in
+            self.changeWeightOfWord(indexPath: indexPath)
+            completionHandler(true)
+        }
+        
         deleteAction.backgroundColor = UIColor(named: "red")
         deleteAction.image = UIImage(named: "delete")
         editAction.backgroundColor = UIColor(named: "lightGreen")
         editAction.image = UIImage(named: "edit")
+        archiveAction.image = UIImage(named: "archive")
+        archiveAction.backgroundColor = UIColor(named: "darkOrange")
         
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction, archiveAction])
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction, archiveAction, weightAction])
         return configuration
     }
     
@@ -345,6 +352,14 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
         dictionary.deleteWord(byIndex: index)
     }
     
+    func changeWeightOfWord(indexPath: IndexPath) {
+        if searchResults != nil {
+            searchResults![indexPath.item].toggleWeight()
+        } else if dictionary.words != nil {
+            dictionary.toggleWordWeight(byIndex: indexPath.item)
+        }        
+    }
+    
     func archiveWord(indexPath: IndexPath) {
         var index: Int = indexPath.row
         
@@ -356,6 +371,17 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         dictionary.archiveWord(byIndex: index)
+    }
+    
+    func setTextOfWeightButton(indexPath: IndexPath) -> String {
+        var word: Word?
+        if let searchResults = searchResults {
+            word = searchResults[indexPath.item]
+        } else if let words = dictionary.words {
+            word = words[indexPath.item]
+        }
+        
+        return word?.weightType == .Low ? "Mark High" : "Mark Low"
     }
     
     func showEditWord(indexPath: IndexPath) {

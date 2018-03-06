@@ -65,5 +65,14 @@ struct Word: Codable {
         self.saveItem()
     }
     
+    mutating func toggleWeight() {
+        if self.weightType == .Low {
+            self.weightType = .High
+        } else {
+            self.weightType = .Low
+        }
+        self.saveItem()
+    }
+    
 }
 
