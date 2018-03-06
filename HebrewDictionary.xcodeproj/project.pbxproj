@@ -16,6 +16,12 @@
 		D178694B2002381C0026E25B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D178694A2002381C0026E25B /* Assets.xcassets */; };
 		D178694E2002381D0026E25B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D178694C2002381D0026E25B /* LaunchScreen.storyboard */; };
 		D178695F20024BD70026E25B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D178695E20024BD70026E25B /* Extensions.swift */; };
+		D17C201D204ED3510066966B /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17C201C204ED3510066966B /* Quiz.swift */; };
+		D17C2023204ED7D00066966B /* WeightType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17C2022204ED7D00066966B /* WeightType.swift */; };
+		D17C2024204ED7D80066966B /* WeightType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17C2022204ED7D00066966B /* WeightType.swift */; };
+		D17C2025204ED7E40066966B /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17C201C204ED3510066966B /* Quiz.swift */; };
+		D17C2026204ED7F70066966B /* DictionaryOfWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = D198BA102003C465009954BC /* DictionaryOfWords.swift */; };
+		D17C2027204ED81C0066966B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D178695E20024BD70026E25B /* Extensions.swift */; };
 		D1837F5E20345E3600B39958 /* WordNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D143A900202C6BE70047CFB2 /* WordNotificationsManager.swift */; };
 		D19853792045413800D80705 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D75FFB2033465000FD68AD /* NotificationViewController.swift */; };
 		D198537C2045450E00D80705 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D198537A2045450D00D80705 /* QuizViewController.swift */; };
@@ -72,6 +78,8 @@
 		D178694D2002381D0026E25B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D178694F2002381D0026E25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D178695E20024BD70026E25B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D17C201C204ED3510066966B /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
+		D17C2022204ED7D00066966B /* WeightType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightType.swift; sourceTree = "<group>"; };
 		D1837F5C20345D7100B39958 /* HebrewDictionary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HebrewDictionary.entitlements; sourceTree = "<group>"; };
 		D1837F5D20345D8E00B39958 /* WordNotificationViewController.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WordNotificationViewController.entitlements; sourceTree = "<group>"; };
 		D198537A2045450D00D80705 /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
@@ -158,10 +166,12 @@
 			children = (
 				D1E5EBB9203C41060012C3D2 /* DataManager.swift */,
 				D1E5EBBB203C42460012C3D2 /* Word.swift */,
+				D17C2022204ED7D00066966B /* WeightType.swift */,
 				D198BA102003C465009954BC /* DictionaryOfWords.swift */,
 				D198BA122004BFB0009954BC /* AddWordViewDirection.swift */,
 				D14B15A9203DAA2B0068E8EB /* WordNotificationType.swift */,
 				D178695E20024BD70026E25B /* Extensions.swift */,
+				D17C201C204ED3510066966B /* Quiz.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -324,10 +334,12 @@
 			files = (
 				D1AFB8F5200DEFFA002207E1 /* WordTableViewCell.swift in Sources */,
 				D17869432002381C0026E25B /* DictionaryViewController.swift in Sources */,
+				D17C201D204ED3510066966B /* Quiz.swift in Sources */,
 				D19853792045413800D80705 /* NotificationViewController.swift in Sources */,
 				D198BA112003C465009954BC /* DictionaryOfWords.swift in Sources */,
 				D143A901202C6BE70047CFB2 /* WordNotificationsManager.swift in Sources */,
 				D198BA15200510EA009954BC /* CustomTextField.swift in Sources */,
+				D17C2023204ED7D00066966B /* WeightType.swift in Sources */,
 				D1E5EBBC203C42460012C3D2 /* Word.swift in Sources */,
 				D17869412002381C0026E25B /* AppDelegate.swift in Sources */,
 				D198537C2045450E00D80705 /* QuizViewController.swift in Sources */,
@@ -343,10 +355,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1837F5E20345E3600B39958 /* WordNotificationsManager.swift in Sources */,
+				D17C2026204ED7F70066966B /* DictionaryOfWords.swift in Sources */,
 				D1E5EBBE203C42DC0012C3D2 /* DataManager.swift in Sources */,
 				D1E5EBBD203C42CE0012C3D2 /* Word.swift in Sources */,
 				D198537E20456EC100D80705 /* QuizViewController.swift in Sources */,
+				D17C2027204ED81C0066966B /* Extensions.swift in Sources */,
+				D17C2024204ED7D80066966B /* WeightType.swift in Sources */,
 				D14B15AB203DABBB0068E8EB /* WordNotificationType.swift in Sources */,
+				D17C2025204ED7E40066966B /* Quiz.swift in Sources */,
 				D1D75FFC2033465000FD68AD /* NotificationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

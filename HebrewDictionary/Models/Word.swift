@@ -16,6 +16,7 @@ struct Word: Codable {
     var createdDate: Date
     var itemIdentifier: UUID
     var archived: Bool = false
+    var weightType: WeightType = WeightType.Low
     
     static let identifier: String = "group.WordNotifications"
     
