@@ -80,7 +80,7 @@ class DictionaryOfWords: NSObject {
             print("word already exists")
             return false
         } else {
-            self.words?.append(word)
+            self.words?.insert(word, at: 0)
             word.saveItem()
             return true
         }

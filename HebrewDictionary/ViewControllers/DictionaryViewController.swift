@@ -175,25 +175,26 @@ class DictionaryViewController: UIViewController {
         present(quizViewController, animated: true, completion: nil)
     }
     
+    // clear out textfields and reload tableview after adding a word
     func clearAddWordView(_ success: Bool) {
         if success {
             
+            var scrollToTop: Bool = true
+            
+            // if editing a word, don't scroll to top and clear out edited word
             if self.editedWord != nil {
+                scrollToTop = false
                 self.editedWord = nil
             }
             
             self.tableview.reloadData()
             
-            // get count of words
-            var count: Int = 0
-            if let searchResults = self.searchResults {
-                count = searchResults.count
-            } else {
-                count = dictionary.words?.count ?? 0
+            // scroll to first row
+            if scrollToTop {
+                let indexPath = IndexPath(row: 0, section: 0)
+                self.tableview.scrollToRow(at: indexPath, at: .top, animated: true)
             }
             
-            let indexPath = IndexPath(row: (count) - 1, section: 0)
-            self.tableview.scrollToRow(at: indexPath, at: .top, animated: true)
             self.moveAddWordView(direction: .down)
             
             // clear textfield
@@ -357,7 +358,7 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
             searchResults![indexPath.item].toggleWeight()
         } else if dictionary.words != nil {
             dictionary.toggleWordWeight(byIndex: indexPath.item)
-        }        
+        }
     }
     
     func archiveWord(indexPath: IndexPath) {
