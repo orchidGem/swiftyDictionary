@@ -23,6 +23,7 @@ class QuizViewController: UIViewController {
             }
         }
     }
+    var answer: String?
     var initialTouchPoint: CGPoint = CGPoint(x: 0,y: 0)
     
     @IBOutlet weak var textLabel : UILabel!
@@ -39,6 +40,10 @@ class QuizViewController: UIViewController {
     // Constraints
     @IBOutlet weak var verticalConstraint: NSLayoutConstraint!
     
+    // Text field properties
+    @IBOutlet weak var enterAnswerView : UIView!
+    @IBOutlet weak var answerTextField : UITextField!
+    
     //MARK: - lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,12 +51,27 @@ class QuizViewController: UIViewController {
         setupQuiz()
         setupPanGesture()
         
+        enterAnswerView.isHidden = true
+        view.addSubview(enterAnswerView)
+        
         translationLabel.isHidden = true
+        
+        setupKeyboardNotifications()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        enterAnswerView.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: enterAnswerView.frame.height)
+        enterAnswerView.isHidden = false
+        answerTextField.becomeFirstResponder()
     }
 
     //MARK: - outlet action methods
     
     @IBAction func submitAnswerTapped(_ sender: Any) {
+        guard let answer = answerTextField.text, answer != "" else { return }
+        self.answer = answer
         submitAnswer()
     }
     
@@ -73,6 +93,7 @@ class QuizViewController: UIViewController {
     func showAnotherWord() {
         translationLabel.isHidden = true
         word = quiz?.pickRandomWord()
+        answerTextField.becomeFirstResponder()
     }
     
     func viewTranslation() {
@@ -83,7 +104,7 @@ class QuizViewController: UIViewController {
         
         guard var quiz = quiz else { return }
         
-        let answer = "Working"
+        guard let answer = self.answer, answer != "" else { return }
 
         let correct = quiz.submitAnswer(answer: answer)
         
@@ -92,18 +113,56 @@ class QuizViewController: UIViewController {
             resultLabel.text = "Correct!"
             resultImage.image = #imageLiteral(resourceName: "checkmark")
             
+            // Change tint color of resultImage
+            resultImage.image = resultImage.image!.withRenderingMode(.alwaysTemplate)
+            resultImage.tintColor = UIColor.white
+            
         } else {
             // Answer is wrong
             resultLabel.text = "Incorrect"
             resultImage.image = #imageLiteral(resourceName: "xIcon")
+            
+            // Change tint color of resultImage
+            resultImage.image = resultImage.image!.withRenderingMode(.alwaysTemplate)
+            resultImage.tintColor = #colorLiteral(red: 1, green: 0.2779999971, blue: 0.2779999971, alpha: 1)
         }
         
         resultStackView.isHidden = false
         translationLabel.isHidden = false
         
-        // Change tint color of resultImage
-        resultImage.image = resultImage.image!.withRenderingMode(.alwaysTemplate)
-        resultImage.tintColor = UIColor.white
+        
+        
+        answerTextField.resignFirstResponder()
+        answerTextField.text = ""
+    }
+    
+    //MARK: - Keyboard methods
+    func setupKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow,object: nil
+        )
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide,object: nil
+        )
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        print("keyboard will show")
+        
+        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let yPoint = self.view.frame.height - (keyboardRectangle.height + enterAnswerView.frame.height)
+            animateEnterAnswerView(yPoint: yPoint)
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        animateEnterAnswerView(yPoint: self.view.frame.height)
+    }
+    
+    func animateEnterAnswerView(yPoint: CGFloat) {
+        UIView.animate(withDuration: 0.3) {
+            self.enterAnswerView.frame.origin = CGPoint(x: 0, y: yPoint)
+        }
     }
 }
 

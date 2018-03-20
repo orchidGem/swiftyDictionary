@@ -113,7 +113,6 @@ class DictionaryViewController: UIViewController {
         fadedView.backgroundColor = UIColor.darkGray
         fadedView.alpha = 0
         view.insertSubview(fadedView, belowSubview: addWordView)
-        
     }
     
     //MARK: - outlet methods
