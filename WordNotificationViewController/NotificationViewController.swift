@@ -12,6 +12,8 @@ import UserNotificationsUI
 
 class NotificationViewController: QuizViewController, UNNotificationContentExtension {
     
+    var answer: String?
+    
     //MARK: - Lifecycle methods
     override func loadView() {
         Bundle.main.loadNibNamed("QuizViewController", owner: self, options: nil)
@@ -23,7 +25,6 @@ class NotificationViewController: QuizViewController, UNNotificationContentExten
         // hide buttons
         self.closeButton.isHidden = true
         self.viewTranslationButton.isHidden = true
-        self.weightButton.isHidden = true
         self.showAnotherButton.isHidden = true
         
         textLabel.font = textLabel.font.withSize(35)
@@ -52,13 +53,27 @@ class NotificationViewController: QuizViewController, UNNotificationContentExten
     
     func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
         
-        if response.actionIdentifier == "viewTranslation" {
-            self.viewTranslation()
-        } else if response.actionIdentifier == "needsPractice" {
-            self.textLabel.text = "needs practice!"
-        } else {
-            showAnotherWord()
+        if response.actionIdentifier != "enterTranslation" {
+            completion(.dismiss)
         }
+        
+        guard let textResponse = response as? UNTextInputNotificationResponse else {
+            completion(.dismiss)
+            return
+        }
+        
+        let text = textResponse.userText
+        
+        if self.answer == nil {
+            self.answer = text
+        } else {
+            completion(.doNotDismiss)
+            return
+        }
+        
+        self.submitAnswer()
+        
+        completion(.doNotDismiss)
     }
     
 }

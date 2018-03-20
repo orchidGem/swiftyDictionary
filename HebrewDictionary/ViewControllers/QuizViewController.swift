@@ -18,7 +18,8 @@ class QuizViewController: UIViewController {
             } else {
                 textLabel.text = word?.translation
                 translationLabel.text = word?.text
-                self.changeTextForWeightButton()
+                
+                resultStackView.isHidden = true
             }
         }
     }
@@ -26,11 +27,13 @@ class QuizViewController: UIViewController {
     
     @IBOutlet weak var textLabel : UILabel!
     @IBOutlet weak var translationLabel : UILabel!
+    @IBOutlet weak var resultStackView : UIStackView!
+    @IBOutlet weak var resultImage : UIImageView!
+    @IBOutlet weak var resultLabel : UILabel!
     
     // Buttons
     @IBOutlet weak var closeButton : UIButton!
     @IBOutlet weak var viewTranslationButton : UIButton!
-    @IBOutlet weak var weightButton : UIButton!
     @IBOutlet weak var showAnotherButton : UIButton!
     
     // Constraints
@@ -47,17 +50,9 @@ class QuizViewController: UIViewController {
     }
 
     //MARK: - outlet action methods
-    @IBAction func showTranslation(_ sender: Any) {
-        viewTranslation()
-    }
     
-    @IBAction func changeWeightOfWord(_ sender: Any) {
-        var word = self.word
-        if word?.weightType == .Low {
-            word?.changeWeightToHigh()
-        } else {
-            word?.changeWeightToLow()
-        }
+    @IBAction func submitAnswerTapped(_ sender: Any) {
+        submitAnswer()
     }
     
     @IBAction func showAnotherWord(_ sender: Any) {
@@ -68,7 +63,7 @@ class QuizViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    //MARK - custom methods
+    //MARK: - custom methods
     func setupQuiz() {
         quiz = Quiz()
         word = quiz?.pickRandomWord()
@@ -78,24 +73,37 @@ class QuizViewController: UIViewController {
     func showAnotherWord() {
         translationLabel.isHidden = true
         word = quiz?.pickRandomWord()
-        print("number of available words left in quiz:", quiz?.dict.words?.count ?? "0")
     }
     
     func viewTranslation() {
         translationLabel.isHidden = false
     }
     
-    func changeTextForWeightButton() {
+    func submitAnswer() {
         
-        var buttonText: String = ""
+        guard var quiz = quiz else { return }
         
-        if self.word?.weightType == .Low {
-            buttonText = "Needs Practice :("
+        let answer = "Working"
+
+        let correct = quiz.submitAnswer(answer: answer)
+        
+        // If answer is correct
+        if correct.0 {
+            resultLabel.text = "Correct!"
+            resultImage.image = #imageLiteral(resourceName: "checkmark")
+            
         } else {
-            buttonText = "Knew It!"
+            // Answer is wrong
+            resultLabel.text = "Incorrect"
+            resultImage.image = #imageLiteral(resourceName: "xIcon")
         }
         
-        self.weightButton.setTitle(buttonText, for: .normal)
+        resultStackView.isHidden = false
+        translationLabel.isHidden = false
+        
+        // Change tint color of resultImage
+        resultImage.image = resultImage.image!.withRenderingMode(.alwaysTemplate)
+        resultImage.tintColor = UIColor.white
     }
 }
 

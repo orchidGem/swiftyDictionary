@@ -23,6 +23,7 @@
 		D17C2026204ED7F70066966B /* DictionaryOfWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = D198BA102003C465009954BC /* DictionaryOfWords.swift */; };
 		D17C2027204ED81C0066966B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D178695E20024BD70026E25B /* Extensions.swift */; };
 		D1837F5E20345E3600B39958 /* WordNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D143A900202C6BE70047CFB2 /* WordNotificationsManager.swift */; };
+		D191CE9D2061102D00B581A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D178694A2002381C0026E25B /* Assets.xcassets */; };
 		D19853792045413800D80705 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D75FFB2033465000FD68AD /* NotificationViewController.swift */; };
 		D198537C2045450E00D80705 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D198537A2045450D00D80705 /* QuizViewController.swift */; };
 		D198537D2045450E00D80705 /* QuizViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D198537B2045450D00D80705 /* QuizViewController.xib */; };
@@ -321,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1D75FFF2033465000FD68AD /* MainInterface.storyboard in Resources */,
+				D191CE9D2061102D00B581A8 /* Assets.xcassets in Resources */,
 				D198537F2045760F00D80705 /* QuizViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

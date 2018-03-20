@@ -20,6 +20,9 @@ class WordNotificationsManager {
     static func scheduleNotifications() {
         
         let center = UNUserNotificationCenter.current()
+        
+        center.removeAllPendingNotificationRequests()
+        
         center.getPendingNotificationRequests { (notificationRequests) in
             
             var scheduleMorning: Bool = true
@@ -62,8 +65,8 @@ class WordNotificationsManager {
             // don't schedule if past ten
             let hour = Calendar.current.component(.hour, from: Date())
             if hour < 20 {
-                trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60*60*2, repeats: false)
-                //trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+//                trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60*60*2, repeats: false)
+                trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
                 identifier = WordNotificationType.Hourly.rawValue
             }
         } else {
@@ -108,12 +111,10 @@ class WordNotificationsManager {
     
     static func setUpCategories() {
         // Define actions
-        let viewTranslation = UNNotificationAction(identifier: "viewTranslation", title: "View translation", options: [])
-        let needsPractice = UNNotificationAction(identifier: "needsPractice", title: "Needs practice", options: [])
-        let showAnotherWord = UNNotificationAction(identifier: "showAnotherWord", title: "Show Another Word", options: [])
+        let enterTranslation = UNTextInputNotificationAction(identifier: "enterTranslation", title: "Enter Translation", options: [], textInputButtonTitle: "Submit", textInputPlaceholder: "Enter Translation")
         
         // Add actions to a wordCategory
-        let category = UNNotificationCategory(identifier: self.notificationCategory, actions: [viewTranslation, needsPractice, showAnotherWord], intentIdentifiers: [], options: [])
+        let category = UNNotificationCategory(identifier: self.notificationCategory, actions: [enterTranslation], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
     }
     

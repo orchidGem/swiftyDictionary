@@ -12,6 +12,7 @@ struct Quiz {
     var dict: DictionaryOfWords!
     var lowWeightedWords: [Word] = []
     var highWeightedWords: [Word] = []
+    var word: Word?
 
     init() {
         self.dict = DictionaryOfWords()
@@ -53,6 +54,19 @@ struct Quiz {
 
         return word
     }
+    
+    mutating func submitAnswer(answer: String) -> (Bool, String) {
+        // Check answer
+        let correct = word?.translation == answer ? true : false
+        
+        // Adjust weight of word
+        correct ? word?.changeWeightToLow() : word?.changeWeightToHigh()
+        
+        // create output
+        let output = correct ? "Correct!" : "Incorrect! The \(word?.text ?? "") means \(word?.translation ?? "")"
+        
+        return (correct, output)
+    }
 
     private func chooseWeight() -> WeightType? {
 
@@ -76,10 +90,6 @@ struct Quiz {
         }
 
         return weight
-    }
-
-    func showTranslation() {
-        // show translation of word
     }
 }
 
